@@ -11,9 +11,9 @@ RUN apt-get install -y \
     git-core \
     build-essential \
     gfortran
-RUN /usr/bin/easy_install supervisor
 
 # Setup OpenSSH server
+RUN /usr/bin/easy_install supervisor
 ADD authorized_keys /authorized_keys
 ADD sshd.sh /sshd.sh
 RUN bash /sshd.sh && rm /sshd.sh
@@ -26,13 +26,13 @@ ADD openblas.conf /etc/ld.so.conf.d/openblas.conf
 ADD openblas.sh /openblas.sh
 RUN bash /openblas.sh && rm /openblas.sh
 
-# Install PETSc from latest stable
-ADD petsc.sh /petsc.sh
-RUN bash /petsc.sh && rm /petsc.sh
+## Install PETSc from latest stable
+#ADD petsc.sh /petsc.sh
+#RUN bash /petsc.sh && rm /petsc.sh
 
-# Install libmesh from git master
-ADD libmesh.sh /libmesh.sh
-RUN bash /libmesh.sh && rm /libmesh.sh
+## Install libmesh from git master
+#ADD libmesh.sh /libmesh.sh
+#RUN bash /libmesh.sh && rm /libmesh.sh
 
 # Finalize by cleaning
 RUN apt-get autoremove -y
