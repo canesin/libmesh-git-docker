@@ -2,11 +2,11 @@
 Docker image for libmesh git master.
 
 It contains:
-	Ubuntu LTS minimal container : latest
-	GCC 4.8.x and GFortran 4.8.x
-	OpenBLAS master : github (AVX2 and 64-threads, Provides BLAS CBLAS LAPACK LAPACKE).
-	PETSc 3.6.x latest stable release
-	LibMesh master : github
+- Ubuntu LTS minimal container : latest
+- GCC 4.8.x and GFortran 4.8.x
+- OpenBLAS master : github (AVX2 and 64-threads, Provides BLAS CBLAS LAPACK LAPACKE).
+- PETSc 3.6.x latest stable release
+- LibMesh master : github
 
 Inspired by [docker-openblas](https://github.com/ogrisel/docker-openblas)
 
