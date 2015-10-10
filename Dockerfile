@@ -6,10 +6,9 @@ ENV DEBIAN_FRONTEND noninteractive
 # Update image and install required packages
 RUN apt-get update && apt-get -y upgrade
 RUN apt-get install -y \
-    python-setuptools \
-    git-core \
     build-essential \
-    gfortran
+    gfortran \
+    git-core
 
 # Install OpenBLAS from git master
 ADD openblas.conf /etc/ld.so.conf.d/openblas.conf
@@ -18,6 +17,7 @@ RUN bash /openblas.sh && rm /openblas.sh
 
 # Install PETSc from latest stable
 ADD petsc.sh /petsc.sh
+ADD http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-lite-3.6.tar.gz /tmp/build
 RUN bash /petsc.sh && rm /petsc.sh
 
 ## Install libmesh from git master

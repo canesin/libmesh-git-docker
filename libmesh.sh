@@ -1,7 +1,6 @@
 #!/usr/bin/bash
 set -xe
 
-mkdir /tmp/build
 cd /tmp/build
 # Build LibMesh from git master
 export PETSC_DIR=/opt/petsc-3.6
@@ -13,4 +12,4 @@ make install
 
 # Clean
 cd /
-rm -rf /tmp/build
+rm -rf /tmp/*

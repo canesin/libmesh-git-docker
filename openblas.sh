@@ -13,4 +13,4 @@ git clone --branch=master git://github.com/xianyi/OpenBLAS.git
 ldconfig
 
 cd /
-rm -rf /tmp/build
+rm -rf /tmp/build/*
