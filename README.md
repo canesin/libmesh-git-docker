@@ -1,33 +1,22 @@
 # libmesh-git-docker
-Docker image for libmesh git master for development and production.
-Inspired by [docker-sshd](https://github.com/sullof/docker-sshd) and [docker-openblas](https://github.com/ogrisel/docker-openblas)
+Docker image for libmesh git master.
 
-## Installation
+It contains:
+	Ubuntu LTS minimal container : latest
+	GCC 4.8.x and GFortran 4.8.x
+	OpenBLAS master : github (AVX2 and 64-threads, Provides BLAS CBLAS LAPACK LAPACKE).
+	PETSc 3.6.x latest stable release
+	LibMesh master : github
 
-```bash
-$ git clone https://github.com/canesin/libmesh-git-docker
-$ cd libmesh-git-docker
-```
-
-The container is accessed by ssh. Before using substitute the current
-```authorized_keys``` file with your public key.
+Inspired by [docker-openblas](https://github.com/ogrisel/docker-openblas)
 
 ## Usage
 
-Build the container:
+Build and start bash in the container:
 ```bash
-$ sudo docker build -t canesin/libmesh-git-docker .
-$ CONTAINER_ID=$(sudo docker run -d docker-ssh)
-$ sudo docker inspect $CONTAINER_ID | grep IPAddress | awk '{ print $2 }' | tr -d ',"'
-```
-
-You will see the container internal IP address:
-```
-172.17.0.74
-```
-Finally, connect to the container with
-```bash
-$ ssh root@172.17.0.74
+$ sudo docker build -t canesin/libmesh-git .
+$ CONTAINER_ID=$(sudo docker run -d libmesh-git-docker)
+$ sudo docker exec -it $CONTAINER_ID bash
 ```
 
 ## License
