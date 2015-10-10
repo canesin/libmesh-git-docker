@@ -17,7 +17,8 @@ RUN bash /openblas.sh && rm /openblas.sh
 
 # Install PETSc from latest stable
 ADD petsc.sh /petsc.sh
-ADD http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-lite-3.6.tar.gz /tmp/build
+RUN curl http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-lite-3.6.tar.gz \
+  | tar -xjC /tmp/build/petsc-lite-3.6
 RUN bash /petsc.sh && rm /petsc.sh
 
 ## Install libmesh from git master
