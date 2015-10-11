@@ -14,9 +14,8 @@ Inspired by [docker-openblas](https://github.com/ogrisel/docker-openblas)
 
 Build and start bash in the container:
 ```bash
-$ sudo docker build -t canesin/libmesh-git .
-$ CONTAINER_ID=$(sudo docker run -d libmesh-git-docker)
-$ sudo docker exec -it $CONTAINER_ID bash
+$ docker build -t canesin/libmesh-git .
+$ docker exec -it canesin/libmesh-git bash
 ```
 
 ## License
