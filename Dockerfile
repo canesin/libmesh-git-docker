@@ -7,9 +7,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get -y upgrade
 RUN apt-get install -y \
     python2.7-minimal \
-    make \
-    gcc \
-    g++ \
+    build-essential \
     gfortran \
     git-core
 
