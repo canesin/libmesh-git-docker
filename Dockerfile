@@ -6,8 +6,10 @@ ENV DEBIAN_FRONTEND noninteractive
 # Update image and install required packages
 RUN apt-get update && apt-get -y upgrade
 RUN apt-get install -y \
-    build-essential \
-    python-setuptools \
+    python2.7-minimal \
+    make \
+    gcc \
+    g++ \
     gfortran \
     git-core
 
