@@ -14,6 +14,7 @@ export PETSC_DIR=/opt/petsc
             --enable-tracefiles
 
 make
+make check
 make install
 cd /
 rm -rf /tmp/*
