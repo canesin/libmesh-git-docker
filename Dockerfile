@@ -1,4 +1,4 @@
-FROM canesin/petsc-stable:latest
+FROM canesin/slepc-stable:latest
 MAINTAINER Fabio Cesar Canesin, fabio.canesin@gmail.com
 
 # Update image and install required packages

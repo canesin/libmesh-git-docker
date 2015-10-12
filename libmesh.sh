@@ -4,17 +4,20 @@ cd /tmp
 unzip master.zip
 rm master.zip
 cd `ls | grep libmesh`
+
 export PETSC_DIR=/opt/petsc
+export SLEPC_DIR=/opt/slepc
 
-./configure --prefix=/opt/libmesh \
-            --with-methods="opt dbg devel" \
-            --with-metis=PETSc \
-            --enable-unique-ptr \
+./configure --with-methods="opt oprof dbg" \
+            --prefix=/opt/libmesh \
+            --enable-silent-rules \
             --enable-unique-id \
-            --enable-tracefiles
-
+            --disable-warnings \
+            --enable-unique-ptr \
+            --enable-openmp \
+            --disable-timestamps
+             
 make
-make check
 make install
 cd /
 rm -rf /tmp/*

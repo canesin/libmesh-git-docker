@@ -1,9 +1,16 @@
-# libmesh-git-docker
-Docker image for libmesh git master.
+## LibMesh
+Docker image for LibMesh git master with canesin/slepc-stable:latest
 
-It contains:
-- canesin/petsc-stable:latest
-- LibMesh master
+```bash
+../configure --with-methods="opt oprof dbg" \
+             --prefix=/opt/libmesh \
+             --enable-silent-rules \
+             --enable-unique-id \
+             --disable-warnings \
+             --enable-unique-ptr \
+             --enable-openmp \
+             --disable-timestamps
+```
 
 ## Usage
 
