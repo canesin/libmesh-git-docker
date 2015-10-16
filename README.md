@@ -14,11 +14,21 @@ Docker image for LibMesh git master with canesin/slepc-stable:latest
 
 ## Usage
 
-Build and start bash in the container:
+To get a copy of the image and start bash in it:
 ```bash
 $ docker pull canesin/libmesh-git
 $ docker run -rm -it canesin/libmesh-git bash
 ```
+
+You will probably want to mount a local machine folder and start bash on it. To do so you can proceed by setting a mySRC environment variable to your project and executing the following commands:
+```bash
+$ export mySRC="PATH_TO_YOUR_PROJECT_FILES"
+$ export LIBMESH_IMG="canesin/libmesh-git"
+$ alias src="docker run --rm -itv ${mySRC}:/opt/src ${LIBMESH_IMG} /bin/sh -c 'cd /opt/src; exec bash'"
+```
+Now just type "src".
+To permanently have the src command add the lines above to ~/.bashrc or your equivalent.
+You can use this bash session as a build machine, develop normally with your text editor in your current OS and local file system.
 
 ## License
 
