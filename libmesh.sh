@@ -1,12 +1,11 @@
 #!/usr/bin/bash
 set -xe
 cd /tmp
+
+# Build LibMesh
 unzip master.zip
 rm master.zip
 cd `ls | grep libmesh`
-
-export PETSC_DIR=/opt/petsc
-export SLEPC_DIR=/opt/slepc
 
 ./configure --with-methods="opt oprof dbg" \
             --prefix=/opt/libmesh \
@@ -19,6 +18,11 @@ export SLEPC_DIR=/opt/slepc
              
 make
 make install
+
+# Add LIBMESH_DIR to env variables
 echo "export LIBMESH_DIR=/opt/libmesh" >> $HOME/.bash_profile
+source $HOME/.bash_profile
+
+# Clean files
 cd /
 rm -rf /tmp/*
