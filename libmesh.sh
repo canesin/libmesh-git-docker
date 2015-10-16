@@ -7,6 +7,9 @@ unzip master.zip
 rm master.zip
 cd `ls | grep libmesh`
 
+export PETSC_DIR=/opt/petsc
+export SLEPC_DIR=/opt/slepc
+
 ./configure --with-methods="opt oprof dbg" \
             --prefix=/opt/libmesh \
             --enable-silent-rules \
