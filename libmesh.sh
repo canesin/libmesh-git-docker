@@ -20,8 +20,8 @@ make
 make install
 
 # Add LIBMESH_DIR to env variables
-echo "export LIBMESH_DIR=/opt/libmesh" >> $HOME/.bash_profile
-source $HOME/.bash_profile
+echo "export LIBMESH_DIR=/opt/libmesh" >> $HOME/.bashrc
+source $HOME/.bashrc
 
 # Clean files
 cd /
