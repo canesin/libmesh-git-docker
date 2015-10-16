@@ -19,5 +19,6 @@ export SLEPC_DIR=/opt/slepc
              
 make
 make install
+echo "export LIBMESH_DIR=/opt/libmesh" >> $HOME/.bash_profile
 cd /
 rm -rf /tmp/*
