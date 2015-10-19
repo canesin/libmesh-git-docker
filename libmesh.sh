@@ -3,7 +3,7 @@ set -xe
 cd /tmp
 
 # Build LibMesh
-unzip master.zip
+unzip -q master.zip
 rm master.zip
 cd `ls | grep libmesh`
 
@@ -13,14 +13,15 @@ export SLEPC_DIR=/opt/slepc
 ./configure --with-methods="opt oprof dbg" \
             --prefix=/opt/libmesh \
             --enable-silent-rules \
-            --enable-unique-id \
-            --disable-warnings \
             --enable-unique-ptr \
+            --enable-unique-id \
             --enable-openmp \
+            --disable-warnings \
             --disable-timestamps
-             
+
 make
 make install
+make installcheck
 
 # Add LIBMESH_DIR to env variables
 echo "export LIBMESH_DIR=/opt/libmesh" >> $HOME/.bashrc
