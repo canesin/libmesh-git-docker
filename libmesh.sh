@@ -10,14 +10,15 @@ cd `ls | grep libmesh`
 export PETSC_DIR=/opt/petsc
 export SLEPC_DIR=/opt/slepc
 
-./configure --with-methods="opt oprof dbg" \
+# Build version for opmitzed code, profile with gprof and full debug for dev
+./configure --with-methods="opt pro dbg" \
             --prefix=/opt/libmesh \
             --enable-silent-rules \
             --enable-unique-ptr \
             --enable-unique-id \
-            --enable-openmp \
             --disable-warnings \
-            --disable-timestamps
+            --disable-timestamps \
+            --disable-fortran
 
 make
 make install

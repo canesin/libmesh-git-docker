@@ -8,9 +8,26 @@ Docker image for LibMesh git master with canesin/slepc-stable:latest
              --enable-unique-id \
              --disable-warnings \
              --enable-unique-ptr \
-             --enable-openmp \
+             --enable-tbb \
              --disable-timestamps
 ```
+
+This image uses Clang-3.8 as default compiler and contains:
+- SLEPc from git master
+- PETSc latest stable (3.6.x), AVX optimized
+- OpenBLAS develop, AVX optimized
+- MPICH 3.1.x
+- METIS 5.1.x
+- ParMETIS 4.0.x
+- HYPRE 2.10.x
+- SuperLU_dist 4.1
+- Clang-3.8
+- Clang-tidy-3.8
+- Clang-format-3.8
+- Intel TBB
+- Cmake
+- Make
+- Perl
 
 ## Usage
 
