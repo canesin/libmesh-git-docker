@@ -2,14 +2,14 @@
 Docker image for LibMesh git master with canesin/slepc-stable:latest
 
 ```bash
-../configure --with-methods="opt oprof dbg" \
-             --prefix=/opt/libmesh \
-             --enable-silent-rules \
-             --enable-unique-id \
-             --disable-warnings \
-             --enable-unique-ptr \
-             --enable-tbb \
-             --disable-timestamps
+./configure --with-methods="opt pro dbg" \
+            --prefix=/opt/libmesh \
+            --enable-silent-rules \
+            --enable-unique-ptr \
+            --enable-unique-id \
+            --disable-warnings \
+            --disable-timestamps \
+            --disable-fortran
 ```
 
 This image uses Clang-3.8 as default compiler and contains:
