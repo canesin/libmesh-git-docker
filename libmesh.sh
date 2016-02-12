@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+ #!/usr/bin/bash
 set -xe
 cd /tmp
 
@@ -20,9 +20,9 @@ export SLEPC_DIR=/opt/slepc
             --disable-timestamps \
             --disable-fortran
 
-make
-make install
-# make installcheck METHODS=opt
+make -j 4
+make install -j 4
+make installcheck METHODS=opt
 
 # Add LIBMESH_DIR to env variables
 echo "export LIBMESH_DIR=/opt/libmesh" >> $HOME/.bashrc
