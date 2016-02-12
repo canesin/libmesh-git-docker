@@ -22,7 +22,7 @@ export SLEPC_DIR=/opt/slepc
 
 make
 make install
-make installcheck METHODS=opt
+# make installcheck METHODS=opt
 
 # Add LIBMESH_DIR to env variables
 echo "export LIBMESH_DIR=/opt/libmesh" >> $HOME/.bashrc
