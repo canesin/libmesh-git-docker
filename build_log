@@ -1,30 +1,36 @@
-Sending build context to Docker daemon 10.75 kB
+Sending build context to Docker daemon 11.78 kB
 Step 1 : FROM canesin/slepc-stable:latest
  ---> b071c3a76132
 Step 2 : MAINTAINER Fabio Cesar Canesin, fabio.canesin@gmail.com
  ---> Using cache
  ---> 12f613c2e46b
-Step 3 : ADD libmesh.sh /libmesh.sh
- ---> e8be36aa50f2
-Removing intermediate container 5d0c40f48f03
-Step 4 : ADD https://github.com/libMesh/libmesh/archive/master.zip /tmp/master.zip
+Step 3 : ADD https://github.com/libMesh/libmesh/archive/master.zip /tmp/master.zip
 
- ---> d15711859443
-Removing intermediate container 0c954ae263ba
-Step 5 : RUN bash /libmesh.sh && rm /libmesh.sh
- ---> Running in ef411dfa7761
-[91m+ cd /tmp
-+ unzip -q master.zip
-[0m[91m+ rm master.zip
-[0m[91m++ ls
-[0m[91m++ grep libmesh
-[0m[91m+ cd libmesh-master
-+ export PETSC_DIR=/opt/petsc
-+ PETSC_DIR=/opt/petsc
-+ export SLEPC_DIR=/opt/slepc
-+ SLEPC_DIR=/opt/slepc
-+ ./configure '--with-methods=opt pro dbg' --prefix=/opt/libmesh --with-metis=PETSc --enable-tbb --enable-ifem --enable-cxx11 --enable-silent-rules --enable-unique-ptr --enable-unique-id --disable-warnings --disable-timestamps --disable-fortran --disable-pthreads --disable-openmp --disable-maintainer-mode
-[0m---------------------------------------------
+ ---> df71c7da8603
+Removing intermediate container 59fcfa51ffb9
+Step 4 : WORKDIR /tmp
+ ---> Running in 706343dd72e8
+ ---> a493df76ce88
+Removing intermediate container 706343dd72e8
+Step 5 : RUN unzip -q master.zip
+ ---> Running in 8b677fdc9b90
+ ---> cb08e36e0c02
+Removing intermediate container 8b677fdc9b90
+Step 6 : WORKDIR /tmp/libmesh-master
+ ---> Running in 0e3a0a31b5fd
+ ---> f77e5386bad8
+Removing intermediate container 0e3a0a31b5fd
+Step 7 : ENV PETSC_DIR /opt/petsc
+ ---> Running in 0e591bd273eb
+ ---> bb0762240ba4
+Removing intermediate container 0e591bd273eb
+Step 8 : ENV SLEPC_DIR /opt/slepc
+ ---> Running in 7f3afed19b6f
+ ---> f7bb5d51170b
+Removing intermediate container 7f3afed19b6f
+Step 9 : RUN ./configure --with-methods="opt pro dbg"     	--prefix=/opt/libmesh         --with-metis=PETSc         --enable-tbb         --enable-ifem         --enable-cxx11         --enable-silent-rules         --enable-unique-ptr         --enable-unique-id         --disable-warnings         --disable-timestamps         --disable-fortran         --disable-pthreads         --disable-openmp         --disable-maintainer-mode
+ ---> Running in 169665de6080
+---------------------------------------------
 ----------- Configuring libMesh -------------
 ---------------------------------------------
 checking build system type... x86_64-unknown-linux-gnu
@@ -857,114 +863,117 @@ Configure complete, now type 'make' and then 'make install'.
 ---------------------------------------------
 --------- Done Configuring libMesh ----------
 ---------------------------------------------
-[91m+ make -j 4
-[0mMaking all in include
+ ---> 2958e5f2e160
+Removing intermediate container 169665de6080
+Step 10 : RUN make -j$(nproc)
+ ---> Running in 7e2c21aa14f4
+Making all in include
 make[1]: Entering directory '/tmp/libmesh-master/include'
 make  all-recursive
 make[2]: Entering directory '/tmp/libmesh-master/include'
 Making all in libmesh
 make[3]: Entering directory '/tmp/libmesh-master/include/libmesh'
   GEN      auto_ptr.h
+  GEN      dof_map.h
   GEN      dof_object.h
   GEN      dirichlet_boundaries.h
-  GEN      dof_map.h
   GEN      factory.h
-  GEN      getpot.h
   GEN      id_types.h
+  GEN      getpot.h
   GEN      libmesh.h
   GEN      libmesh_C_isnan.h
   GEN      libmesh_augment_std_namespace.h
   GEN      libmesh_base.h
   GEN      libmesh_common.h
   GEN      libmesh_documentation.h
-  GEN      libmesh_exceptions.h
   GEN      libmesh_logging.h
-  GEN      libmesh_version.h
+  GEN      libmesh_exceptions.h
   GEN      libmesh_singleton.h
+  GEN      libmesh_version.h
   GEN      multi_predicates.h
   GEN      periodic_boundary.h
   GEN      periodic_boundaries.h
+  GEN      periodic_boundary_base.h
   GEN      reference_counted_object.h
   GEN      print_trace.h
-  GEN      periodic_boundary_base.h
   GEN      reference_counter.h
-  GEN      variable.h
-  GEN      sparsity_pattern.h
   GEN      single_predicates.h
+  GEN      sparsity_pattern.h
   GEN      variant_filter_iterator.h
-  GEN      enum_convergence_flags.h
+  GEN      variable.h
   GEN      enum_eigen_solver_type.h
+  GEN      enum_convergence_flags.h
   GEN      enum_elem_quality.h
   GEN      enum_elem_type.h
   GEN      enum_error_estimator_type.h
-  GEN      enum_inf_map_type.h
   GEN      enum_fe_family.h
+  GEN      enum_inf_map_type.h
   GEN      enum_io_package.h
   GEN      enum_norm_type.h
-  GEN      enum_parallel_type.h
   GEN      enum_order.h
+  GEN      enum_parallel_type.h
   GEN      enum_point_locator_type.h
   GEN      enum_preconditioner_type.h
   GEN      enum_quadrature_type.h
   GEN      enum_solver_package.h
-  GEN      enum_subset_solve_mode.h
   GEN      enum_solver_type.h
-  GEN      adjoint_refinement_estimator.h
+  GEN      enum_subset_solve_mode.h
   GEN      enum_xdr_mode.h
-  GEN      adjoint_residual_error_estimator.h
+  GEN      adjoint_refinement_estimator.h
   GEN      discontinuity_measure.h
+  GEN      adjoint_residual_error_estimator.h
+  GEN      exact_error_estimator.h
   GEN      error_estimator.h
   GEN      exact_solution.h
-  GEN      exact_error_estimator.h
+  GEN      fourth_error_estimators.h
   GEN      hp_coarsentest.h
   GEN      hp_selector.h
-  GEN      hp_singular.h
-  GEN      fourth_error_estimators.h
   GEN      jump_error_estimator.h
-  GEN      uniform_refinement_estimator.h
+  GEN      hp_singular.h
   GEN      kelly_error_estimator.h
   GEN      patch_recovery_error_estimator.h
+  GEN      uniform_refinement_estimator.h
   GEN      weighted_patch_recovery_error_estimator.h
   GEN      fe.h
-  GEN      fe_base.h
   GEN      fe_abstract.h
+  GEN      fe_base.h
   GEN      fe_compute_data.h
   GEN      fe_macro.h
   GEN      fe_interface.h
   GEN      fe_map.h
-  GEN      fe_transformation_base.h
-  GEN      fe_type.h
   GEN      fe_xyz_map.h
   GEN      h1_fe_transformation.h
-  GEN      inf_fe.h
+  GEN      fe_type.h
+  GEN      fe_transformation_base.h
   GEN      hcurl_fe_transformation.h
+  GEN      inf_fe.h
   GEN      inf_fe_instantiate_1D.h
   GEN      inf_fe_instantiate_2D.h
-  GEN      inf_fe_macro.h
   GEN      inf_fe_instantiate_3D.h
-  GEN      cell.h
+  GEN      inf_fe_macro.h
   GEN      cell_hex.h
   GEN      cell_hex20.h
-  GEN      cell_hex27.h
+  GEN      cell.h
   GEN      cell_hex8.h
+  GEN      cell_hex27.h
   GEN      cell_inf.h
   GEN      cell_inf_hex.h
-  GEN      cell_inf_hex16.h
   GEN      cell_inf_hex18.h
+  GEN      cell_inf_hex16.h
   GEN      cell_inf_hex8.h
-  GEN      cell_inf_prism12.h
   GEN      cell_inf_prism.h
+  GEN      cell_inf_prism12.h
   GEN      cell_inf_prism6.h
   GEN      cell_prism.h
-  GEN      cell_prism18.h
   GEN      cell_prism15.h
+  GEN      cell_prism18.h
   GEN      cell_prism6.h
   GEN      cell_pyramid.h
-  GEN      cell_pyramid13.h
   GEN      cell_pyramid14.h
   GEN      cell_pyramid5.h
-  GEN      cell_tet.h
+  GEN      cell_pyramid13.h
   GEN      cell_tet10.h
+  GEN      cell_tet.h
   GEN      cell_tet4.h
   GEN      edge.h
   GEN      edge_edge2.h
@@ -972,17 +981,17 @@ make[3]: Entering directory '/tmp/libmesh-master/include/libmesh'
   GEN      edge_edge4.h
   GEN      edge_inf_edge2.h
   GEN      elem.h
-  GEN      elem_cutter.h
   GEN      elem_hash.h
+  GEN      elem_cutter.h
   GEN      elem_quality.h
   GEN      elem_range.h
   GEN      face.h
   GEN      face_inf_quad.h
-  GEN      face_inf_quad4.h
   GEN      face_inf_quad6.h
+  GEN      face_inf_quad4.h
   GEN      face_quad.h
-  GEN      face_quad4.h
   GEN      face_quad8.h
+  GEN      face_quad4.h
   GEN      face_quad9.h
   GEN      face_tri.h
   GEN      face_tri3.h
@@ -999,95 +1008,95 @@ make[3]: Entering directory '/tmp/libmesh-master/include/libmesh'
   GEN      sphere.h
   GEN      stored_range.h
   GEN      surface.h
-  GEN      boundary_info.h
   GEN      abaqus_io.h
-  GEN      checkpoint_io.h
+  GEN      boundary_info.h
   GEN      boundary_mesh.h
+  GEN      checkpoint_io.h
   GEN      diva_io.h
   GEN      ensight_io.h
   GEN      exodusII_io.h
   GEN      exodusII_io_helper.h
   GEN      fro_io.h
+  GEN      gmsh_io.h
   GEN      gmv_io.h
   GEN      gnuplot_io.h
-  GEN      gmsh_io.h
   GEN      inf_elem_builder.h
   GEN      legacy_xdr_io.h
-  GEN      matlab_io.h
   GEN      medit_io.h
-  GEN      mesh_base.h
   GEN      mesh.h
+  GEN      matlab_io.h
+  GEN      mesh_base.h
   GEN      mesh_communication.h
   GEN      mesh_function.h
   GEN      mesh_data.h
   GEN      mesh_generation.h
   GEN      mesh_input.h
-  GEN      mesh_inserter_iterator.h
   GEN      mesh_modification.h
+  GEN      mesh_inserter_iterator.h
   GEN      mesh_output.h
   GEN      mesh_refinement.h
   GEN      mesh_serializer.h
   GEN      mesh_smoother.h
   GEN      mesh_smoother_laplace.h
-  GEN      mesh_smoother_vsmoother.h
   GEN      mesh_subdivision_support.h
+  GEN      mesh_smoother_vsmoother.h
   GEN      mesh_tetgen_interface.h
-  GEN      mesh_tools.h
   GEN      mesh_tetgen_wrapper.h
   GEN      mesh_triangle_holes.h
+  GEN      mesh_tools.h
   GEN      mesh_triangle_interface.h
   GEN      mesh_triangle_wrapper.h
-  GEN      nemesis_io.h
   GEN      namebased_io.h
   GEN      nemesis_io_helper.h
+  GEN      nemesis_io.h
   GEN      off_io.h
   GEN      parallel_mesh.h
   GEN      patch.h
-  GEN      serial_mesh.h
   GEN      postscript_io.h
+  GEN      serial_mesh.h
   GEN      tecplot_io.h
   GEN      tetgen_io.h
+  GEN      ucd_io.h
   GEN      unstructured_mesh.h
   GEN      unv_io.h
-  GEN      ucd_io.h
   GEN      vtk_io.h
   GEN      xdr_head.h
   GEN      xdr_io.h
-  GEN      xdr_mesh.h
-  GEN      xdr_mhead.h
   GEN      xdr_mgf.h
+  GEN      xdr_mhead.h
   GEN      xdr_shead.h
+  GEN      xdr_mesh.h
   GEN      xdr_soln.h
   GEN      analytic_function.h
+  GEN      composite_function.h
   GEN      composite_fem_function.h
   GEN      const_fem_function.h
-  GEN      composite_function.h
   GEN      const_function.h
-  GEN      dense_matrix.h
   GEN      coupling_matrix.h
+  GEN      dense_matrix.h
   GEN      dense_matrix_base.h
   GEN      dense_submatrix.h
-  GEN      dense_vector_base.h
   GEN      dense_subvector.h
   GEN      dense_vector.h
-  GEN      distributed_vector.h
+  GEN      dense_vector_base.h
   GEN      eigen_core_support.h
-  GEN      eigen_preconditioner.h
   GEN      eigen_sparse_matrix.h
+  GEN      eigen_preconditioner.h
+  GEN      distributed_vector.h
   GEN      eigen_sparse_vector.h
-  GEN      fem_function_base.h
   GEN      function_base.h
-  GEN      laspack_matrix.h
   GEN      laspack_vector.h
+  GEN      fem_function_base.h
+  GEN      laspack_matrix.h
   GEN      numeric_vector.h
-  GEN      parsed_fem_function.h
   GEN      parsed_fem_function_parameter.h
+  GEN      parsed_fem_function.h
   GEN      parsed_function.h
-  GEN      parsed_function_parameter.h
   GEN      petsc_macro.h
+  GEN      parsed_function_parameter.h
   GEN      petsc_matrix.h
-  GEN      petsc_solver_exception.h
   GEN      petsc_preconditioner.h
+  GEN      petsc_solver_exception.h
   GEN      petsc_vector.h
   GEN      preconditioner.h
   GEN      raw_accessor.h
@@ -1095,32 +1104,32 @@ make[3]: Entering directory '/tmp/libmesh-master/include/libmesh'
   GEN      shell_matrix.h
   GEN      sparse_matrix.h
   GEN      sparse_shell_matrix.h
-  GEN      tensor_shell_matrix.h
   GEN      sum_shell_matrix.h
+  GEN      tensor_shell_matrix.h
   GEN      tensor_tools.h
   GEN      tensor_value.h
   GEN      trilinos_epetra_matrix.h
-  GEN      trilinos_preconditioner.h
   GEN      trilinos_epetra_vector.h
-  GEN      type_n_tensor.h
+  GEN      trilinos_preconditioner.h
   GEN      type_tensor.h
+  GEN      type_n_tensor.h
   GEN      type_vector.h
   GEN      wrapped_function.h
   GEN      vector_value.h
   GEN      wrapped_functor.h
   GEN      zero_function.h
   GEN      parallel.h
-  GEN      parallel_bin_sorter.h
-  GEN      parallel_conversion_utils.h
   GEN      parallel_algebra.h
+  GEN      parallel_bin_sorter.h
   GEN      parallel_elem.h
   GEN      parallel_ghost_sync.h
+  GEN      parallel_conversion_utils.h
   GEN      parallel_hilbert.h
-  GEN      parallel_implementation.h
   GEN      parallel_node.h
-  GEN      parallel_histogram.h
+  GEN      parallel_implementation.h
   GEN      parallel_object.h
   GEN      parallel_sort.h
+  GEN      parallel_histogram.h
   GEN      threads.h
   GEN      threads_allocators.h
   GEN      centroid_partitioner.h
@@ -1133,33 +1142,33 @@ make[3]: Entering directory '/tmp/libmesh-master/include/libmesh'
   GEN      parmetis_partitioner.h
   GEN      partitioner.h
   GEN      sfc_partitioner.h
-  GEN      diff_qoi.h
   GEN      diff_physics.h
   GEN      fem_physics.h
+  GEN      diff_qoi.h
   GEN      quadrature.h
-  GEN      quadrature_composite.h
   GEN      quadrature_clough.h
+  GEN      quadrature_composite.h
   GEN      quadrature_conical.h
-  GEN      quadrature_gauss_lobatto.h
   GEN      quadrature_gauss.h
-  GEN      quadrature_gm.h
+  GEN      quadrature_gauss_lobatto.h
   GEN      quadrature_grid.h
-  GEN      quadrature_jacobi.h
-  GEN      quadrature_trap.h
+  GEN      quadrature_gm.h
   GEN      quadrature_monomial.h
+  GEN      quadrature_jacobi.h
   GEN      quadrature_simpson.h
+  GEN      quadrature_trap.h
+  GEN      rb_construction_base.h
   GEN      rb_construction.h
   GEN      rb_assembly_expansion.h
-  GEN      rb_construction_base.h
   GEN      rb_data_deserialization.h
   GEN      rb_data_serialization.h
-  GEN      rb_eim_assembly.h
-  GEN      rb_eim_construction.h
   GEN      rb_eim_evaluation.h
   GEN      rb_eim_theta.h
-  GEN      rb_parameters.h
+  GEN      rb_eim_construction.h
+  GEN      rb_eim_assembly.h
   GEN      rb_evaluation.h
   GEN      rb_parametrized.h
+  GEN      rb_parameters.h
   GEN      rb_parametrized_function.h
   GEN      rb_scm_construction.h
   GEN      rb_scm_evaluation.h
@@ -1170,69 +1179,69 @@ make[3]: Entering directory '/tmp/libmesh-master/include/libmesh'
   GEN      transient_rb_construction.h
   GEN      transient_rb_evaluation.h
   GEN      transient_rb_theta_expansion.h
-  GEN      dtk_adapter.h
   GEN      direct_solution_transfer.h
-  GEN      dtk_evaluator.h
+  GEN      dtk_adapter.h
   GEN      dtk_solution_transfer.h
+  GEN      dtk_evaluator.h
   GEN      meshfree_interpolation.h
   GEN      meshfree_solution_transfer.h
-  GEN      radial_basis_functions.h
   GEN      meshfunction_solution_transfer.h
+  GEN      radial_basis_functions.h
   GEN      radial_basis_interpolation.h
-  GEN      adaptive_time_solver.h
   GEN      solution_transfer.h
   GEN      diff_solver.h
+  GEN      adaptive_time_solver.h
   GEN      eigen_solver.h
   GEN      eigen_sparse_linear_solver.h
-  GEN      eigen_time_solver.h
   GEN      euler2_solver.h
   GEN      euler_solver.h
+  GEN      eigen_time_solver.h
   GEN      first_order_unsteady_solver.h
   GEN      laspack_linear_solver.h
   GEN      linear_solver.h
   GEN      memory_solution_history.h
-  GEN      newton_solver.h
   GEN      newmark_solver.h
+  GEN      newton_solver.h
   GEN      nlopt_optimization_solver.h
-  GEN      no_solution_history.h
   GEN      nonlinear_solver.h
+  GEN      no_solution_history.h
+  GEN      optimization_solver.h
   GEN      petsc_auto_fieldsplit.h
   GEN      petsc_diff_solver.h
-  GEN      optimization_solver.h
   GEN      petsc_linear_solver.h
   GEN      petsc_nonlinear_solver.h
   GEN      petscdmlibmesh.h
   GEN      second_order_unsteady_solver.h
   GEN      slepc_eigen_solver.h
-  GEN      solution_history.h
   GEN      slepc_macro.h
+  GEN      solution_history.h
   GEN      solver_configuration.h
   GEN      tao_optimization_solver.h
-  GEN      time_solver.h
   GEN      steady_solver.h
+  GEN      time_solver.h
   GEN      trilinos_aztec_linear_solver.h
   GEN      trilinos_nox_nonlinear_solver.h
   GEN      twostep_time_solver.h
+  GEN      continuation_system.h
   GEN      condensed_eigen_system.h
   GEN      unsteady_solver.h
-  GEN      continuation_system.h
   GEN      dg_fem_context.h
-  GEN      diff_context.h
   GEN      diff_system.h
   GEN      eigen_system.h
-  GEN      elem_assembly.h
+  GEN      diff_context.h
   GEN      equation_systems.h
-  GEN      fem_context.h
+  GEN      elem_assembly.h
   GEN      explicit_system.h
+  GEN      fem_context.h
   GEN      fem_system.h
   GEN      frequency_system.h
   GEN      implicit_system.h
   GEN      linear_implicit_system.h
   GEN      newmark_system.h
-  GEN      optimization_system.h
   GEN      nonlinear_implicit_system.h
-  GEN      parameter_multiaccessor.h
+  GEN      optimization_system.h
   GEN      parameter_accessor.h
+  GEN      parameter_multiaccessor.h
   GEN      parameter_multipointer.h
   GEN      parameter_pointer.h
   GEN      parameter_vector.h
@@ -1240,17 +1249,17 @@ make[3]: Entering directory '/tmp/libmesh-master/include/libmesh'
   GEN      sensitivity_data.h
   GEN      steady_system.h
   GEN      system.h
-  GEN      system_subset.h
   GEN      system_norm.h
+  GEN      system_subset.h
   GEN      system_subset_by_subdomain.h
   GEN      compare_types.h
   GEN      transient_system.h
   GEN      error_vector.h
   GEN      hashword.h
-  GEN      libmesh_nullptr.h
   GEN      ignore_warnings.h
-  GEN      mapvector.h
+  GEN      libmesh_nullptr.h
   GEN      location_maps.h
+  GEN      mapvector.h
   GEN      null_output_iterator.h
   GEN      number_lookups.h
   GEN      ostream_proxy.h
@@ -1258,28 +1267,28 @@ make[3]: Entering directory '/tmp/libmesh-master/include/libmesh'
   GEN      perf_log.h
   GEN      perfmon.h
   GEN      plt_loader.h
-  GEN      point_locator_list.h
   GEN      point_locator_base.h
+  GEN      pool_allocator.h
+  GEN      point_locator_list.h
   GEN      point_locator_tree.h
   GEN      restore_warnings.h
-  GEN      pool_allocator.h
   GEN      safe_bool.h
   GEN      string_to_enum.h
-  GEN      timestamp.h
   GEN      statistics.h
+  GEN      timestamp.h
   GEN      topology_map.h
-  GEN      tree_base.h
   GEN      tree.h
-  GEN      tree_node.h
+  GEN      tree_base.h
   GEN      utility.h
+  GEN      tree_node.h
   GEN      vectormap.h
   GEN      xdr_cxx.h
-  GEN      parallel_communicator_specializations
   GEN      fparser.hh
+  GEN      parallel_communicator_specializations
   GEN      nanoflann.hpp
-  GEN      fparser_ad.hh
-  GEN      exodusII.h
   GEN      netcdf.h
+  GEN      exodusII.h
+  GEN      fparser_ad.hh
   GEN      unique_ptr.hpp
   GEN      libmesh_config.h
 make  all-am
@@ -1308,14 +1317,14 @@ make[2]: Nothing to be done for 'all'.
 make[2]: Leaving directory '/tmp/libmesh-master/contrib/eigen/3.2.5'
 Making all in gmv
 make[2]: Entering directory '/tmp/libmesh-master/contrib/gmv'
-  CC       libprof_la-gmvread.lo
   CC       libdbg_la-gmvread.lo
+  CC       libprof_la-gmvread.lo
   CC       libopt_la-gmvread.lo
   CCLD     libdbg.la
 [91mar: `u' modifier ignored since `D' is the default (see `U')
 [0m  CCLD     libprof.la
   CCLD     libopt.la
-[91mar: `u' modifier ignored since `D' is the default (see `U')
+[91mar: [0m[91m`u' modifier ignored since `D' is the default (see `U')
 [0m[91mar: `u' modifier ignored since `D' is the default (see `U')
 [0mmake[2]: Leaving directory '/tmp/libmesh-master/contrib/gmv'
 Making all in netcdf/v4
@@ -1328,9 +1337,9 @@ make[4]: Nothing to be done for 'all'.
 make[4]: Leaving directory '/tmp/libmesh-master/contrib/netcdf/4.3.1/include'
 Making all in libdispatch
 make[4]: Entering directory '/tmp/libmesh-master/contrib/netcdf/4.3.1/libdispatch'
+  CC       libdispatch_la-dfile.lo
   CC       libdispatch_la-dparallel.lo
   CC       libdispatch_la-dcopy.lo
-  CC       libdispatch_la-dfile.lo
   CC       libdispatch_la-ddim.lo
   CC       libdispatch_la-datt.lo
   CC       libdispatch_la-dattinq.lo
@@ -1351,7 +1360,7 @@ make[4]: Entering directory '/tmp/libmesh-master/contrib/netcdf/4.3.1/libdispatc
   CC       libdispatch_la-nchashmap.lo
   CC       libdispatch_la-nctime.lo
   CC       libdispatch_la-dsubstrate.lo
-[91mnctime.c:516:11: warning: absolute value function 'abs' given an argument of type 'long' but has parameter of type 'int' which may cause truncation of value [-Wabsolute-value]
+[91mnctime.c[0m[91m:516:11: warning: absolute value function 'abs' given an argument of type 'long' but has parameter of type 'int' which may cause truncation of value [-Wabsolute-value]
                 *nDel = abs(range)/delMonths;
                         ^
 nctime.c:516:11: note: use function 'labs' instead
@@ -1359,13 +1368,13 @@ nctime.c:516:11: note: use function 'labs' instead
                         ^~~
                         labs
 [0m  CC       libdispatch_la-nc.lo
-[91m1 warning generated.
-[0m  CC       libdispatch_la-nclistmgr.lo
+  CC       libdispatch_la-nclistmgr.lo
   CC       libnetcdf2_la-dv2i.lo
-  CCLD     libdispatch.la
+[91m1 warning generated.
+[0m  CCLD     libdispatch.la
+  CCLD     libnetcdf2.la
 [91mar: `u' modifier ignored since `D' is the default (see `U')
-[0m  CCLD     libnetcdf2.la
-[91mar: [0m[91m`u' modifier ignored since `D' is the default (see `U')
+[0m[91mar: [0m[91m`u' modifier ignored since `D' is the default (see `U')
 [0mmake[4]: Leaving directory '/tmp/libmesh-master/contrib/netcdf/4.3.1/libdispatch'
 Making all in libsrc
 make[4]: Entering directory '/tmp/libmesh-master/contrib/netcdf/4.3.1/libsrc'
@@ -1373,10 +1382,10 @@ make[4]: Entering directory '/tmp/libmesh-master/contrib/netcdf/4.3.1/libsrc'
   CC       libnetcdf3_la-putget.lo
   CC       libnetcdf3_la-attr.lo
   CC       libnetcdf3_la-nc3dispatch.lo
-[91mputget.c:5150:6: warning: expression result unused; should this cast be to 'void'? [-Wunused-value]
+[91mputget.c[0m[91m:5150:6: warning: expression result unused; should this cast be to 'void'? [-Wunused-value]
             (void*)memcpy((void*)modedges,(void*)varp->shape,
             ^    ~
-[0m[91mputget.c:5283:6: warning: expression result unused; should this cast be to 'void'? [-Wunused-value]
+[0m[91mputget.c[0m[91m:5283:6: warning: expression result unused; should this cast be to 'void'? [-Wunused-value]
             (void*)memcpy((void*)modedges,(void*)varp->shape,
             ^    ~
 [0m  CC       libnetcdf3_la-nc3internal.lo
@@ -1385,7 +1394,7 @@ make[4]: Entering directory '/tmp/libmesh-master/contrib/netcdf/4.3.1/libsrc'
                     if( (off_t)(*shp) <= OFF_T_MAX / product )
                                          ^~~~~~~~~
 var.c:18:47: note: expanded from macro 'OFF_T_MAX'
-[0m[91m#define OFF_T_MAX (~ (off_t) 0 - (~ (off_t) 0 << (CHAR_BIT * sizeof (off_t) - 1)))
+#define OFF_T_MAX (~ (off_t) 0 - (~ (off_t) 0 << (CHAR_BIT * sizeof (off_t) - 1)))
                                   ~~~~~~~~~~~ ^
 var.c:441:15: warning: shifting a negative signed value is undefined [-Wshift-negative-value]
                                 product = OFF_T_MAX ;
@@ -1396,9 +1405,9 @@ var.c:18:47: note: expanded from macro 'OFF_T_MAX'
 [0m[91m2 warnings generated.
 [0m  CC       libnetcdf3_la-dim.lo
   CC       libnetcdf3_la-ncx.lo
-  CC       libnetcdf3_la-lookup3.lo
-[91m2 warnings generated.
-[0m  CC       libnetcdf3_la-ncio.lo
+[91m2[0m[91m warnings generated.
+[0m  CC       libnetcdf3_la-lookup3.lo
+  CC       libnetcdf3_la-ncio.lo
   CC       libnetcdf3_la-memio.lo
   CC       libnetcdf3_la-posixio.lo
   CCLD     libnetcdf3.la
@@ -1413,9 +1422,9 @@ make[4]: Entering directory '/tmp/libmesh-master/contrib/netcdf/4.3.1/liblib'
 Making all in ncgen3
 make[4]: Entering directory '/tmp/libmesh-master/contrib/netcdf/4.3.1/ncgen3'
   CC       main.o
+  CC       escapes.o
   CC       load.o
   CC       getfill.o
-  CC       escapes.o
   CC       init.o
   CC       genlib.o
   CC       ncgentab.o
@@ -1423,20 +1432,20 @@ make[4]: Entering directory '/tmp/libmesh-master/contrib/netcdf/4.3.1/ncgen3'
 make[4]: Leaving directory '/tmp/libmesh-master/contrib/netcdf/4.3.1/ncgen3'
 Making all in ncgen
 make[4]: Entering directory '/tmp/libmesh-master/contrib/netcdf/4.3.1/ncgen'
-  CC       main.o
   CC       generate.o
-  CC       cdata.o
+  CC       main.o
   CC       bindata.o
+  CC       cdata.o
   CC       genchar.o
   CC       cvt.o
   CC       data.o
 [91mdata.c:545:4: warning: format specifies type 'unsigned char' but the argument has type 'unsigned int' [-Wformat]
-[0m[91m                        (unsigned int)va_arg(argv,unsigned int));
-                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[0m[91mdata.c:548:4: warning: format specifies type 'unsigned short' but the argument has type 'unsigned int' [-Wformat]
                         (unsigned int)va_arg(argv,unsigned int));
-[0m[91m                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[0m[91mdata.c:564:4: warning: format specifies type 'char' but the argument has type 'int' [-Wformat]
+                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+data.c:548:4: warning: format specifies type 'unsigned short' but the argument has type 'unsigned int' [-Wformat]
+                        (unsigned int)va_arg(argv,unsigned int));
+                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+data.c:564:4: warning: format specifies type 'char' but the argument has type 'int' [-Wformat]
                         (signed int)va_arg(argv,signed int));
                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 data.c:567:4: warning: format specifies type 'short' but the argument has type 'int' [-Wformat]
@@ -1479,8 +1488,8 @@ make[6]: Entering directory '/tmp/libmesh-master/contrib/netcdf/4.3.1/ncdump/exp
 make[6]: Nothing to be done for 'all'.
 make[6]: Leaving directory '/tmp/libmesh-master/contrib/netcdf/4.3.1/ncdump/expected4'
 make[6]: Entering directory '/tmp/libmesh-master/contrib/netcdf/4.3.1/ncdump'
-  CC       ncdump.o
   CC       vardata.o
+  CC       ncdump.o
   CC       indent.o
   CC       dumplib.o
   CC       nctime0.o
@@ -1526,9 +1535,9 @@ make[2]: Leaving directory '/tmp/libmesh-master/contrib/netcdf/4.3.1'
 Making all in exodusii/v5.22/exodus
 make[2]: Entering directory '/tmp/libmesh-master/contrib/exodusii/5.22b/exodus'
   CC       cbind/src/libdbg_la-ex_close.lo
-  CC       cbind/src/libdbg_la-ex_create.lo
-  CC       cbind/src/libdbg_la-ex_conv.lo
   CC       cbind/src/libdbg_la-ex_copy.lo
+  CC       cbind/src/libdbg_la-ex_conv.lo
+  CC       cbind/src/libdbg_la-ex_create.lo
   CC       cbind/src/libdbg_la-ex_cvt_nodes_to_sides.lo
   CC       cbind/src/libdbg_la-ex_err.lo
   CC       cbind/src/libdbg_la-ex_get_all_times.lo
@@ -1828,8 +1837,8 @@ make[2]: Entering directory '/tmp/libmesh-master/contrib/exodusii/5.22b/exodus'
   CC       cbind/src/libopt_la-ex_get_processor_node_maps.lo
   CC       cbind/src/libopt_la-ex_get_prop.lo
   CC       cbind/src/libopt_la-ex_get_prop_array.lo
-  CC       cbind/src/libopt_la-ex_get_prop_names.lo
   CC       cbind/src/libopt_la-ex_get_qa.lo
+  CC       cbind/src/libopt_la-ex_get_prop_names.lo
   CC       cbind/src/libopt_la-ex_get_set.lo
   CC       cbind/src/libopt_la-ex_get_sets.lo
   CC       cbind/src/libopt_la-ex_get_set_dist_fact.lo
@@ -1976,8 +1985,8 @@ make[2]: Entering directory '/tmp/libmesh-master/contrib/exodusii/5.22b/exodus'
   CC       cbind/src/libprof_la-ex_get_cmap_params.lo
   CC       cbind/src/libprof_la-ex_get_concat_node_sets.lo
   CC       cbind/src/libprof_la-ex_get_concat_sets.lo
-  CC       cbind/src/libprof_la-ex_get_concat_side_set_node_count.lo
   CC       cbind/src/libprof_la-ex_get_concat_side_sets.lo
+  CC       cbind/src/libprof_la-ex_get_concat_side_set_node_count.lo
   CC       cbind/src/libprof_la-ex_get_conn.lo
   CC       cbind/src/libprof_la-ex_get_coord.lo
   CC       cbind/src/libprof_la-ex_get_coord_names.lo
@@ -2042,8 +2051,8 @@ make[2]: Entering directory '/tmp/libmesh-master/contrib/exodusii/5.22b/exodus'
   CC       cbind/src/libprof_la-ex_get_one_elem_attr.lo
   CC       cbind/src/libprof_la-ex_get_partial_elem_map.lo
   CC       cbind/src/libprof_la-ex_get_partial_num_map.lo
-  CC       cbind/src/libprof_la-ex_get_processor_node_maps.lo
   CC       cbind/src/libprof_la-ex_get_processor_elem_maps.lo
+  CC       cbind/src/libprof_la-ex_get_processor_node_maps.lo
   CC       cbind/src/libprof_la-ex_get_prop.lo
   CC       cbind/src/libprof_la-ex_get_prop_array.lo
   CC       cbind/src/libprof_la-ex_get_prop_names.lo
@@ -2079,8 +2088,8 @@ make[2]: Entering directory '/tmp/libmesh-master/contrib/exodusii/5.22b/exodus'
   CC       cbind/src/libprof_la-ex_opts.lo
   CC       cbind/src/libprof_la-ex_put_all_var_param.lo
   CC       cbind/src/libprof_la-ex_put_all_var_param_ext.lo
-  CC       cbind/src/libprof_la-ex_put_attr.lo
   CC       cbind/src/libprof_la-ex_put_attr_names.lo
+  CC       cbind/src/libprof_la-ex_put_attr.lo
   CC       cbind/src/libprof_la-ex_put_attr_param.lo
   CC       cbind/src/libprof_la-ex_put_block.lo
   CC       cbind/src/libprof_la-ex_put_block_param.lo
@@ -2188,33 +2197,18 @@ make[2]: Entering directory '/tmp/libmesh-master/contrib/exodusii/5.22b/exodus'
 [0mmake[2]: Leaving directory '/tmp/libmesh-master/contrib/exodusii/5.22b/exodus'
 Making all in nemesis/v5.22/nemesis
 make[2]: Entering directory '/tmp/libmesh-master/contrib/exodusii/5.22b/nemesis'
+  CC       libprof_la-nemesis_wrapper.lo
   CC       libdbg_la-nemesis_wrapper.lo
   CC       libopt_la-nemesis_wrapper.lo
-  CC       libprof_la-nemesis_wrapper.lo
   CCLD     libdbg.la
-  CCLD     libprof.la
   CCLD     libopt.la
+  CCLD     libprof.la
 [91mar: `u' modifier ignored since `D' is the default (see `U')
 [0m[91mar: `u' modifier ignored since `D' is the default (see `U')
 [0m[91mar: `u' modifier ignored since `D' is the default (see `U')
 [0mmake[2]: Leaving directory '/tmp/libmesh-master/contrib/exodusii/5.22b/nemesis'
 Making all in qhull/qhull
 make[2]: Entering directory '/tmp/libmesh-master/contrib/qhull/2012.1'
-  CC       src/libqhull/libdbg_la-geom.lo
-  CC       src/libqhull/libdbg_la-geom2.lo
-  CC       src/libqhull/libdbg_la-global.lo
-  CC       src/libqhull/libdbg_la-io.lo
-  CC       src/libqhull/libdbg_la-libqhull.lo
-  CC       src/libqhull/libdbg_la-mem.lo
-  CC       src/libqhull/libdbg_la-merge.lo
-  CC       src/libqhull/libdbg_la-poly.lo
-  CC       src/libqhull/libdbg_la-poly2.lo
-  CC       src/libqhull/libdbg_la-qset.lo
-  CC       src/libqhull/libdbg_la-random.lo
-  CC       src/libqhull/libdbg_la-rboxlib.lo
-  CC       src/libqhull/libdbg_la-stat.lo
-  CC       src/libqhull/libdbg_la-user.lo
-  CC       src/libqhull/libdbg_la-usermem.lo
   CXX      src/libqhullcpp/libdbg_la-Coordinates.lo
   CXX      src/libqhullcpp/libdbg_la-PointCoordinates.lo
   CXX      src/libqhullcpp/libdbg_la-Qhull.lo
@@ -2305,18 +2299,33 @@ make[2]: Entering directory '/tmp/libmesh-master/contrib/qhull/2012.1'
   CXX      src/libqhullcpp/libprof_la-RoadError.lo
   CXX      src/libqhullcpp/libprof_la-RoadLogEvent.lo
   CXX      src/libqhullcpp/libprof_la-UsingLibQhull.lo
-  CXXLD    libdbg.la
+  CC       src/libqhull/libdbg_la-geom.lo
+  CC       src/libqhull/libdbg_la-geom2.lo
+  CC       src/libqhull/libdbg_la-global.lo
+  CC       src/libqhull/libdbg_la-io.lo
+  CC       src/libqhull/libdbg_la-libqhull.lo
+  CC       src/libqhull/libdbg_la-mem.lo
+  CC       src/libqhull/libdbg_la-merge.lo
+  CC       src/libqhull/libdbg_la-poly.lo
+  CC       src/libqhull/libdbg_la-poly2.lo
+  CC       src/libqhull/libdbg_la-qset.lo
+  CC       src/libqhull/libdbg_la-random.lo
+  CC       src/libqhull/libdbg_la-rboxlib.lo
+  CC       src/libqhull/libdbg_la-stat.lo
+  CC       src/libqhull/libdbg_la-user.lo
+  CC       src/libqhull/libdbg_la-usermem.lo
   CXXLD    libopt.la
+  CXXLD    libprof.la
+  CXXLD    libdbg.la
 [91mar: `u' modifier ignored since `D' is the default (see `U')
-[0m[91mar: [0m[91m`u' modifier ignored since `D' is the default (see `U')
-[0m  CXXLD    libprof.la
-[91mar: `u' modifier ignored since `D' is the default (see `U')
+[0m[91mar: `u' modifier ignored since `D' is the default (see `U')
+[0m[91mar: [0m[91m`u' modifier ignored since `D' is the default (see `U')[0m[91m
 [0mmake[2]: Leaving directory '/tmp/libmesh-master/contrib/qhull/2012.1'
 Making all in libHilbert
 make[2]: Entering directory '/tmp/libmesh-master/contrib/libHilbert'
   CXX      src/libdbg_la-BigBitVec.lo
-  CXX      src/libdbg_la-FixBitVec.lo
   CXX      src/libdbg_la-Hilbert.lo
+  CXX      src/libdbg_la-FixBitVec.lo
   CXX      src/libdbg_la-hilbert_mpi_ops.lo
   CXX      src/libopt_la-BigBitVec.lo
   CXX      src/libopt_la-FixBitVec.lo
@@ -2327,9 +2336,9 @@ make[2]: Entering directory '/tmp/libmesh-master/contrib/libHilbert'
   CXX      src/libprof_la-Hilbert.lo
   CXX      src/libprof_la-hilbert_mpi_ops.lo
   CXXLD    libdbg.la
-[91mar: `u' modifier ignored since `D' is the default (see `U')
+[91mar: [0m[91m`u' modifier ignored since `D' is the default (see `U')
 [0m  CXXLD    libopt.la
-[91mar: `u' modifier ignored since `D' is the default (see `U')
+[91mar: [0m[91m`u' modifier ignored since `D' is the default (see `U')
 [0m  CXXLD    libprof.la
 [91mar: `u' modifier ignored since `D' is the default (see `U')
 [0mmake[2]: Leaving directory '/tmp/libmesh-master/contrib/libHilbert'
@@ -2374,11 +2383,11 @@ make[2]: Entering directory '/tmp/libmesh-master/contrib/nanoflann'
 make[2]: Nothing to be done for 'all'.
 make[2]: Leaving directory '/tmp/libmesh-master/contrib/nanoflann'
 make[2]: Entering directory '/tmp/libmesh-master/contrib'
-  CXX      libcontrib_prof_la-cppsource.lo
   CXX      libcontrib_opt_la-cppsource.lo
   CXX      libcontrib_dbg_la-cppsource.lo
-  CXXLD    libcontrib_prof.la
+  CXX      libcontrib_prof_la-cppsource.lo
   CXXLD    libcontrib_opt.la
+  CXXLD    libcontrib_prof.la
   CXXLD    libcontrib_dbg.la
 [91mar: `u' modifier ignored since `D' is the default (see `U')
 [0m[91mar: `u' modifier ignored since `D' is the default (see `U')
@@ -2784,15 +2793,15 @@ cat ./src/simple_header.html ./src/developers.html ./src/simple_footer.html > de
 cat ./src/simple_header.html ./src/examples.html ./src/simple_footer.html > examples.html.html.tmp
 cat ./src/simple_header.html ./src/externalsoftware.html ./src/simple_footer.html > externalsoftware.html.html.tmp
 cat ./src/simple_header.html ./src/index.html ./src/simple_footer.html > index.html.html.tmp
+  GEN      examples.html
   GEN      developers.html
+  GEN      index.html
   GEN      externalsoftware.html
 cat ./src/simple_header.html ./src/installation.html ./src/simple_footer.html > installation.html.html.tmp
-  GEN      examples.html
 cat ./src/simple_header.html ./src/publications.html ./src/simple_footer.html > publications.html.html.tmp
-  GEN      index.html
 cat ./src/simple_header.html ./src/support.html ./src/simple_footer.html > support.html.html.tmp
-  GEN      publications.html
   GEN      support.html
+  GEN      publications.html
   GEN      installation.html
 make  all-am
 make[3]: Entering directory '/tmp/libmesh-master/doc/html'
@@ -2805,8 +2814,8 @@ make[2]: Leaving directory '/tmp/libmesh-master/doc'
 make[1]: Leaving directory '/tmp/libmesh-master/doc'
 make[1]: Entering directory '/tmp/libmesh-master'
   CXX      src/base/libmesh_opt_la-dof_map.lo
-  CXX      src/base/libmesh_opt_la-dof_object.lo
   CXX      src/base/libmesh_opt_la-dof_map_constraints.lo
+  CXX      src/base/libmesh_opt_la-dof_object.lo
   CXX      src/base/libmesh_opt_la-libmesh.lo
   CXX      src/base/libmesh_opt_la-libmesh_common.lo
   CC       src/base/libmesh_opt_la-libmesh_isnan.lo
@@ -2825,8 +2834,8 @@ make[1]: Entering directory '/tmp/libmesh-master'
   CXX      src/error_estimation/libmesh_opt_la-exact_error_estimator.lo
   CXX      src/error_estimation/libmesh_opt_la-exact_solution.lo
   CXX      src/error_estimation/libmesh_opt_la-fourth_error_estimators.lo
-  CXX      src/error_estimation/libmesh_opt_la-hp_selector.lo
   CXX      src/error_estimation/libmesh_opt_la-hp_coarsentest.lo
+  CXX      src/error_estimation/libmesh_opt_la-hp_selector.lo
   CXX      src/error_estimation/libmesh_opt_la-hp_singular.lo
   CXX      src/error_estimation/libmesh_opt_la-jump_error_estimator.lo
   CXX      src/error_estimation/libmesh_opt_la-kelly_error_estimator.lo
@@ -2961,8 +2970,8 @@ make[1]: Entering directory '/tmp/libmesh-master'
   CXX      src/geom/libmesh_opt_la-face_tri.lo
   CXX      src/geom/libmesh_opt_la-face_tri3.lo
   CXX      src/geom/libmesh_opt_la-face_tri3_subdivision.lo
-  CXX      src/geom/libmesh_opt_la-face_tri6.lo
   CXX      src/geom/libmesh_opt_la-node.lo
+  CXX      src/geom/libmesh_opt_la-face_tri6.lo
   CXX      src/geom/libmesh_opt_la-node_elem.lo
   CXX      src/geom/libmesh_opt_la-plane.lo
   CXX      src/geom/libmesh_opt_la-point.lo
@@ -4075,9 +4084,9 @@ PETSC_DEPRECATED("Use SVDComputeError() with SVD_ERROR_ABSOLUTE") PETSC_STATIC_I
   CXX      src/apps/fparser_parse_opt-fparser_parse.o
   CXX      src/apps/getpot_parse_opt-getpot_parse.o
   CXX      src/apps/meshtool_opt-meshtool.o
-  CXX      src/apps/calculator_opt-calculator.o
-[91mclang: warning: argument unused during compilation: '-pg'
-[0m  CXX      src/apps/calculator_opt-L2system.o
+[91mclang[0m[91m: warning: argument unused during compilation: '-pg'
+[0m  CXX      src/apps/calculator_opt-calculator.o
+  CXX      src/apps/calculator_opt-L2system.o
   CXX      src/apps/compare_opt-compare.o
   CXX      src/apps/meshbcid_opt-meshbcid.o
   CXX      src/apps/meshid_opt-meshid.o
@@ -4120,8 +4129,8 @@ PETSC_DEPRECATED("Use SVDComputeError() with SVD_ERROR_ABSOLUTE") PETSC_STATIC_I
   CXXLD    solution_components-opt
   CXXLD    fparser_parse-dbg
   CXXLD    meshtool-dbg
-  CXXLD    calculator-dbg
   CXXLD    getpot_parse-dbg
+  CXXLD    calculator-dbg
   CXXLD    compare-dbg
   CXXLD    meshbcid-dbg
   CXXLD    meshid-dbg
@@ -4133,8 +4142,11 @@ PETSC_DEPRECATED("Use SVDComputeError() with SVD_ERROR_ABSOLUTE") PETSC_STATIC_I
   CXXLD    meshplot-dbg
   CXXLD    solution_components-dbg
 make[1]: Leaving directory '/tmp/libmesh-master'
-[91m+ make install -j 4
-[0mMaking install in include
+ ---> c3c542f382a0
+Removing intermediate container 7e2c21aa14f4
+Step 11 : RUN make install -j$(nproc)
+ ---> Running in eb36137fd4bf
+Making install in include
 make[1]: Entering directory '/tmp/libmesh-master/include'
 Making install in libmesh
 make[2]: Entering directory '/tmp/libmesh-master/include/libmesh'
@@ -4465,8 +4477,8 @@ make[3]: Entering directory '/tmp/libmesh-master/contrib/netcdf/4.3.1/ncgen3'
 make[4]: Entering directory '/tmp/libmesh-master/contrib/netcdf/4.3.1/ncgen3'
  /bin/mkdir -p '/opt/libmesh/bin'
  /bin/mkdir -p '/opt/libmesh/share/man/man1'
- /usr/bin/install -c -m 644 ncgen3.1 '/opt/libmesh/share/man/man1'
   /bin/bash ../libtool   --mode=install /usr/bin/install -c ncgen3 '/opt/libmesh/bin'
+ /usr/bin/install -c -m 644 ncgen3.1 '/opt/libmesh/share/man/man1'
 libtool: install: /usr/bin/install -c .libs/ncgen3 /opt/libmesh/bin/ncgen3
 make[4]: Leaving directory '/tmp/libmesh-master/contrib/netcdf/4.3.1/ncgen3'
 make[3]: Leaving directory '/tmp/libmesh-master/contrib/netcdf/4.3.1/ncgen3'
@@ -4551,8 +4563,8 @@ make[4]: Leaving directory '/tmp/libmesh-master/contrib/netcdf/4.3.1/examples'
 make[3]: Leaving directory '/tmp/libmesh-master/contrib/netcdf/4.3.1/examples'
 make[3]: Entering directory '/tmp/libmesh-master/contrib/netcdf/4.3.1'
 make[4]: Entering directory '/tmp/libmesh-master/contrib/netcdf/4.3.1'
- /bin/mkdir -p '/opt/libmesh/lib/pkgconfig'
  /bin/mkdir -p '/opt/libmesh/bin'
+ /bin/mkdir -p '/opt/libmesh/lib/pkgconfig'
  /usr/bin/install -c -m 644 netcdf.pc '/opt/libmesh/lib/pkgconfig'
  /usr/bin/install -c nc-config '/opt/libmesh/bin'
 make  install-data-hook
@@ -5305,15 +5317,15 @@ make[1]: Leaving directory '/tmp/libmesh-master/doc'
 make[1]: Entering directory '/tmp/libmesh-master'
 make[2]: Entering directory '/tmp/libmesh-master'
  /bin/mkdir -p '/opt/libmesh/lib'
- /bin/bash ./libtool   --mode=install /usr/bin/install -c   libmesh_dbg.la libmesh_opt.la libmesh_prof.la '/opt/libmesh/lib'
  /bin/mkdir -p '/opt/libmesh/etc/libmesh'
+ /bin/bash ./libtool   --mode=install /usr/bin/install -c   libmesh_dbg.la libmesh_opt.la libmesh_prof.la '/opt/libmesh/lib'
  /bin/mkdir -p '/opt/libmesh/contrib/bin'
- /usr/bin/install -c contrib/bin/make_dependencies.pl libtool '/opt/libmesh/contrib/bin'
- /usr/bin/install -c -m 644 contrib/utils/Make.common contrib/utils/libmesh.pc contrib/utils/libmesh-opt.pc contrib/utils/libmesh-dbg.pc contrib/utils/libmesh-devel.pc contrib/utils/libmesh-prof.pc contrib/utils/libmesh-oprof.pc '/opt/libmesh/etc/libmesh'
  /bin/mkdir -p '/opt/libmesh/bin'
+ /usr/bin/install -c -m 644 contrib/utils/Make.common contrib/utils/libmesh.pc contrib/utils/libmesh-opt.pc contrib/utils/libmesh-dbg.pc contrib/utils/libmesh-devel.pc contrib/utils/libmesh-prof.pc contrib/utils/libmesh-oprof.pc '/opt/libmesh/etc/libmesh'
+ /usr/bin/install -c contrib/bin/make_dependencies.pl libtool '/opt/libmesh/contrib/bin'
+ /usr/bin/install -c contrib/bin/libmesh-config '/opt/libmesh/bin'
  /bin/mkdir -p '/opt/libmesh/share'
  /bin/mkdir -p '/opt/libmesh/lib/pkgconfig'
- /usr/bin/install -c contrib/bin/libmesh-config '/opt/libmesh/bin'
  /usr/bin/install -c -m 644 contrib/utils/Make.common contrib/utils/libmesh.pc contrib/utils/libmesh-opt.pc contrib/utils/libmesh-dbg.pc contrib/utils/libmesh-devel.pc contrib/utils/libmesh-prof.pc contrib/utils/libmesh-oprof.pc '/opt/libmesh/lib/pkgconfig'
  /bin/mkdir -p '/opt/libmesh/share/reference_elements/3D'
  /usr/bin/install -c -m 644  reference_elements/3D/one_hex.xda reference_elements/3D/one_hex20.xda reference_elements/3D/one_hex27.xda reference_elements/3D/one_prism.xda reference_elements/3D/one_prism15.xda reference_elements/3D/one_prism18.xda reference_elements/3D/one_pyramid.xda reference_elements/3D/one_pyramid14.xda reference_elements/3D/one_tet.xda reference_elements/3D/one_tet10.xda '/opt/libmesh/share/reference_elements/3D'
@@ -5341,7 +5353,7 @@ libtool: install: (cd /opt/libmesh/lib && { ln -s -f libmesh_opt.so.0.0.0 libmes
 libtool: install: /usr/bin/install -c .libs/libmesh_opt.lai /opt/libmesh/lib/libmesh_opt.la
 [91mlibtool: warning: relinking 'libmesh_prof.la'
 [0mlibtool: install: (cd /tmp/libmesh-master; /bin/bash "/tmp/libmesh-master/libtool"  --silent --tag CXX --mode=relink clang++-3.8 -std=gnu++11 -O2 -felide-constructors -Qunused-arguments -pg -std=gnu++11 -o libmesh_prof.la -rpath /opt/libmesh/lib src/base/libmesh_prof_la-dof_map.lo src/base/libmesh_prof_la-dof_map_constraints.lo src/base/libmesh_prof_la-dof_object.lo src/base/libmesh_prof_la-libmesh.lo src/base/libmesh_prof_la-libmesh_common.lo src/base/libmesh_prof_la-libmesh_isnan.lo src/base/libmesh_prof_la-libmesh_singleton.lo src/base/libmesh_prof_la-periodic_boundaries.lo src/base/libmesh_prof_la-periodic_boundary.lo src/base/libmesh_prof_la-periodic_boundary_base.lo src/base/libmesh_prof_la-print_trace.lo src/base/libmesh_prof_la-reference_counted_object.lo src/base/libmesh_prof_la-reference_counter.lo src/base/libmesh_prof_la-sparsity_pattern.lo src/error_estimation/libmesh_prof_la-adjoint_refinement_estimator.lo src/error_estimation/libmesh_prof_la-adjoint_residual_error_estimator.lo src/error_estimation/libmesh_prof_la-discontinuity_measure.lo src/error_estimation/libmesh_prof_la-error_estimator.lo src/error_estimation/libmesh_prof_la-exact_error_estimator.lo src/error_estimation/libmesh_prof_la-exact_solution.lo src/error_estimation/libmesh_prof_la-fourth_error_estimators.lo src/error_estimation/libmesh_prof_la-hp_coarsentest.lo src/error_estimation/libmesh_prof_la-hp_selector.lo src/error_estimation/libmesh_prof_la-hp_singular.lo src/error_estimation/libmesh_prof_la-jump_error_estimator.lo src/error_estimation/libmesh_prof_la-kelly_error_estimator.lo src/error_estimation/libmesh_prof_la-patch_recovery_error_estimator.lo src/error_estimation/libmesh_prof_la-uniform_refinement_estimator.lo src/error_estimation/libmesh_prof_la-weighted_patch_recovery_estimator.lo src/fe/libmesh_prof_la-fe.lo src/fe/libmesh_prof_la-fe_abstract.lo src/fe/libmesh_prof_la-fe_base.lo src/fe/libmesh_prof_la-fe_bernstein.lo src/fe/libmesh_prof_la-fe_bernstein_shape_0D.lo src/fe/libmesh_prof_la-fe_bernstein_shape_1D.lo src/fe/libmesh_prof_la-fe_bernstein_shape_2D.lo src/fe/libmesh_prof_la-fe_bernstein_shape_3D.lo src/fe/libmesh_prof_la-fe_boundary.lo src/fe/libmesh_prof_la-fe_clough.lo src/fe/libmesh_prof_la-fe_clough_shape_0D.lo src/fe/libmesh_prof_la-fe_clough_shape_1D.lo src/fe/libmesh_prof_la-fe_clough_shape_2D.lo src/fe/libmesh_prof_la-fe_clough_shape_3D.lo src/fe/libmesh_prof_la-fe_compute_data.lo src/fe/libmesh_prof_la-fe_hermite.lo src/fe/libmesh_prof_la-fe_hermite_shape_0D.lo src/fe/libmesh_prof_la-fe_hermite_shape_1D.lo src/fe/libmesh_prof_la-fe_hermite_shape_2D.lo src/fe/libmesh_prof_la-fe_hermite_shape_3D.lo src/fe/libmesh_prof_la-fe_hierarchic.lo src/fe/libmesh_prof_la-fe_hierarchic_shape_0D.lo src/fe/libmesh_prof_la-fe_hierarchic_shape_1D.lo src/fe/libmesh_prof_la-fe_hierarchic_shape_2D.lo src/fe/libmesh_prof_la-fe_hierarchic_shape_3D.lo src/fe/libmesh_prof_la-fe_interface.lo src/fe/libmesh_prof_la-fe_interface_inf_fe.lo src/fe/libmesh_prof_la-fe_l2_hierarchic.lo src/fe/libmesh_prof_la-fe_l2_hierarchic_shape_0D.lo src/fe/libmesh_prof_la-fe_l2_hierarchic_shape_1D.lo src/fe/libmesh_prof_la-fe_l2_hierarchic_shape_2D.lo src/fe/libmesh_prof_la-fe_l2_hierarchic_shape_3D.lo src/fe/libmesh_prof_la-fe_l2_lagrange.lo src/fe/libmesh_prof_la-fe_l2_lagrange_shape_0D.lo src/fe/libmesh_prof_la-fe_l2_lagrange_shape_1D.lo src/fe/libmesh_prof_la-fe_l2_lagrange_shape_2D.lo src/fe/libmesh_prof_la-fe_l2_lagrange_shape_3D.lo src/fe/libmesh_prof_la-fe_lagrange.lo src/fe/libmesh_prof_la-fe_lagrange_shape_0D.lo src/fe/libmesh_prof_la-fe_lagrange_shape_1D.lo src/fe/libmesh_prof_la-fe_lagrange_shape_2D.lo src/fe/libmesh_prof_la-fe_lagrange_shape_3D.lo src/fe/libmesh_prof_la-fe_lagrange_vec.lo src/fe/libmesh_prof_la-fe_map.lo src/fe/libmesh_prof_la-fe_monomial.lo src/fe/libmesh_prof_la-fe_monomial_shape_0D.lo src/fe/libmesh_prof_la-fe_monomial_shape_1D.lo src/fe/libmesh_prof_la-fe_monomial_shape_2D.lo src/fe/libmesh_prof_la-fe_monomial_shape_3D.lo src/fe/libmesh_prof_la-fe_nedelec_one.lo src/fe/libmesh_prof_la-fe_nedelec_one_shape_2D.lo src/fe/libmesh_prof_la-fe_nedelec_one_shape_3D.lo src/fe/libmesh_prof_la-fe_scalar.lo src/fe/libmesh_prof_la-fe_scalar_shape_0D.lo src/fe/libmesh_prof_la-fe_scalar_shape_1D.lo src/fe/libmesh_prof_la-fe_scalar_shape_2D.lo src/fe/libmesh_prof_la-fe_scalar_shape_3D.lo src/fe/libmesh_prof_la-fe_subdivision_2D.lo src/fe/libmesh_prof_la-fe_szabab.lo src/fe/libmesh_prof_la-fe_szabab_shape_0D.lo src/fe/libmesh_prof_la-fe_szabab_shape_1D.lo src/fe/libmesh_prof_la-fe_szabab_shape_2D.lo src/fe/libmesh_prof_la-fe_szabab_shape_3D.lo src/fe/libmesh_prof_la-fe_transformation_base.lo src/fe/libmesh_prof_la-fe_type.lo src/fe/libmesh_prof_la-fe_xyz.lo src/fe/libmesh_prof_la-fe_xyz_boundary.lo src/fe/libmesh_prof_la-fe_xyz_map.lo src/fe/libmesh_prof_la-fe_xyz_shape_0D.lo src/fe/libmesh_prof_la-fe_xyz_shape_1D.lo src/fe/libmesh_prof_la-fe_xyz_shape_2D.lo src/fe/libmesh_prof_la-fe_xyz_shape_3D.lo src/fe/libmesh_prof_la-h1_fe_transformation.lo src/fe/libmesh_prof_la-hcurl_fe_transformation.lo src/fe/libmesh_prof_la-inf_fe.lo src/fe/libmesh_prof_la-inf_fe_base_radial.lo src/fe/libmesh_prof_la-inf_fe_boundary.lo src/fe/libmesh_prof_la-inf_fe_jacobi_20_00_eval.lo src/fe/libmesh_prof_la-inf_fe_jacobi_30_00_eval.lo src/fe/libmesh_prof_la-inf_fe_lagrange_eval.lo src/fe/libmesh_prof_la-inf_fe_legendre_eval.lo src/fe/libmesh_prof_la-inf_fe_map.lo src/fe/libmesh_prof_la-inf_fe_map_eval.lo src/fe/libmesh_prof_la-inf_fe_static.lo src/geom/libmesh_prof_la-cell.lo src/geom/libmesh_prof_la-cell_hex.lo src/geom/libmesh_prof_la-cell_hex20.lo src/geom/libmesh_prof_la-cell_hex27.lo src/geom/libmesh_prof_la-cell_hex8.lo src/geom/libmesh_prof_la-cell_inf.lo src/geom/libmesh_prof_la-cell_inf_hex.lo src/geom/libmesh_prof_la-cell_inf_hex16.lo src/geom/libmesh_prof_la-cell_inf_hex18.lo src/geom/libmesh_prof_la-cell_inf_hex8.lo src/geom/libmesh_prof_la-cell_inf_prism.lo src/geom/libmesh_prof_la-cell_inf_prism12.lo src/geom/libmesh_prof_la-cell_inf_prism6.lo src/geom/libmesh_prof_la-cell_prism.lo src/geom/libmesh_prof_la-cell_prism15.lo src/geom/libmesh_prof_la-cell_prism18.lo src/geom/libmesh_prof_la-cell_prism6.lo src/geom/libmesh_prof_la-cell_pyramid.lo src/geom/libmesh_prof_la-cell_pyramid13.lo src/geom/libmesh_prof_la-cell_pyramid14.lo src/geom/libmesh_prof_la-cell_pyramid5.lo src/geom/libmesh_prof_la-cell_tet.lo src/geom/libmesh_prof_la-cell_tet10.lo src/geom/libmesh_prof_la-cell_tet4.lo src/geom/libmesh_prof_la-edge.lo src/geom/libmesh_prof_la-edge_edge2.lo src/geom/libmesh_prof_la-edge_edge3.lo src/geom/libmesh_prof_la-edge_edge4.lo src/geom/libmesh_prof_la-edge_inf_edge2.lo src/geom/libmesh_prof_la-elem.lo src/geom/libmesh_prof_la-elem_cutter.lo src/geom/libmesh_prof_la-elem_quality.lo src/geom/libmesh_prof_la-elem_refinement.lo src/geom/libmesh_prof_la-face.lo src/geom/libmesh_prof_la-face_inf_quad.lo src/geom/libmesh_prof_la-face_inf_quad4.lo src/geom/libmesh_prof_la-face_inf_quad6.lo src/geom/libmesh_prof_la-face_quad.lo src/geom/libmesh_prof_la-face_quad4.lo src/geom/libmesh_prof_la-face_quad8.lo src/geom/libmesh_prof_la-face_quad9.lo src/geom/libmesh_prof_la-face_tri.lo src/geom/libmesh_prof_la-face_tri3.lo src/geom/libmesh_prof_la-face_tri3_subdivision.lo src/geom/libmesh_prof_la-face_tri6.lo src/geom/libmesh_prof_la-node.lo src/geom/libmesh_prof_la-node_elem.lo src/geom/libmesh_prof_la-plane.lo src/geom/libmesh_prof_la-point.lo src/geom/libmesh_prof_la-reference_elem.lo src/geom/libmesh_prof_la-remote_elem.lo src/geom/libmesh_prof_la-sphere.lo src/geom/libmesh_prof_la-surface.lo src/mesh/libmesh_prof_la-abaqus_io.lo src/mesh/libmesh_prof_la-boundary_info.lo src/mesh/libmesh_prof_la-boundary_mesh.lo src/mesh/libmesh_prof_la-checkpoint_io.lo src/mesh/libmesh_prof_la-diva_io.lo src/mesh/libmesh_prof_la-ensight_io.lo src/mesh/libmesh_prof_la-exodusII_io.lo src/mesh/libmesh_prof_la-exodusII_io_helper.lo src/mesh/libmesh_prof_la-fro_io.lo src/mesh/libmesh_prof_la-gmsh_io.lo src/mesh/libmesh_prof_la-gmv_io.lo src/mesh/libmesh_prof_la-gnuplot_io.lo src/mesh/libmesh_prof_la-inf_elem_builder.lo src/mesh/libmesh_prof_la-legacy_xdr_io.lo src/mesh/libmesh_prof_la-matlab_io.lo src/mesh/libmesh_prof_la-medit_io.lo src/mesh/libmesh_prof_la-mesh_base.lo src/mesh/libmesh_prof_la-mesh_communication.lo src/mesh/libmesh_prof_la-mesh_communication_global_indices.lo src/mesh/libmesh_prof_la-mesh_data.lo src/mesh/libmesh_prof_la-mesh_data_tetgen_support.lo src/mesh/libmesh_prof_la-mesh_data_unv_support.lo src/mesh/libmesh_prof_la-mesh_data_xdr_support.lo src/mesh/libmesh_prof_la-mesh_function.lo src/mesh/libmesh_prof_la-mesh_generation.lo src/mesh/libmesh_prof_la-mesh_iterators.lo src/mesh/libmesh_prof_la-mesh_modification.lo src/mesh/libmesh_prof_la-mesh_output.lo src/mesh/libmesh_prof_la-mesh_refinement.lo src/mesh/libmesh_prof_la-mesh_refinement_flagging.lo src/mesh/libmesh_prof_la-mesh_refinement_smoothing.lo src/mesh/libmesh_prof_la-mesh_serializer.lo src/mesh/libmesh_prof_la-mesh_smoother.lo src/mesh/libmesh_prof_la-mesh_smoother_laplace.lo src/mesh/libmesh_prof_la-mesh_smoother_vsmoother.lo src/mesh/libmesh_prof_la-mesh_subdivision_support.lo src/mesh/libmesh_prof_la-mesh_tetgen_interface.lo src/mesh/libmesh_prof_la-mesh_tetgen_wrapper.lo src/mesh/libmesh_prof_la-mesh_tools.lo src/mesh/libmesh_prof_la-mesh_triangle_holes.lo src/mesh/libmesh_prof_la-mesh_triangle_interface.lo src/mesh/libmesh_prof_la-mesh_triangle_wrapper.lo src/mesh/libmesh_prof_la-namebased_io.lo src/mesh/libmesh_prof_la-nemesis_io.lo src/mesh/libmesh_prof_la-nemesis_io_helper.lo src/mesh/libmesh_prof_la-off_io.lo src/mesh/libmesh_prof_la-parallel_mesh.lo src/mesh/libmesh_prof_la-patch.lo src/mesh/libmesh_prof_la-postscript_io.lo src/mesh/libmesh_prof_la-serial_mesh.lo src/mesh/libmesh_prof_la-tecplot_io.lo src/mesh/libmesh_prof_la-tetgen_io.lo src/mesh/libmesh_prof_la-ucd_io.lo src/mesh/libmesh_prof_la-unstructured_mesh.lo src/mesh/libmesh_prof_la-unv_io.lo src/mesh/libmesh_prof_la-vtk_io.lo src/mesh/libmesh_prof_la-xdr_head.lo src/mesh/libmesh_prof_la-xdr_io.lo src/mesh/libmesh_prof_la-xdr_mesh.lo src/mesh/libmesh_prof_la-xdr_mgf.lo src/mesh/libmesh_prof_la-xdr_soln.lo src/numerics/libmesh_prof_la-analytic_function.lo src/numerics/libmesh_prof_la-coupling_matrix.lo src/numerics/libmesh_prof_la-dense_matrix.lo src/numerics/libmesh_prof_la-dense_matrix_base.lo src/numerics/libmesh_prof_la-dense_matrix_blas_lapack.lo src/numerics/libmesh_prof_la-dense_submatrix.lo src/numerics/libmesh_prof_la-dense_subvector.lo src/numerics/libmesh_prof_la-dense_vector.lo src/numerics/libmesh_prof_la-dense_vector_base.lo src/numerics/libmesh_prof_la-distributed_vector.lo src/numerics/libmesh_prof_la-eigen_preconditioner.lo src/numerics/libmesh_prof_la-eigen_sparse_matrix.lo src/numerics/libmesh_prof_la-eigen_sparse_vector.lo src/numerics/libmesh_prof_la-function_base.lo src/numerics/libmesh_prof_la-laspack_matrix.lo src/numerics/libmesh_prof_la-laspack_vector.lo src/numerics/libmesh_prof_la-numeric_vector.lo src/numerics/libmesh_prof_la-petsc_matrix.lo src/numerics/libmesh_prof_la-petsc_preconditioner.lo src/numerics/libmesh_prof_la-petsc_vector.lo src/numerics/libmesh_prof_la-preconditioner.lo src/numerics/libmesh_prof_la-sparse_matrix.lo src/numerics/libmesh_prof_la-sparse_shell_matrix.lo src/numerics/libmesh_prof_la-sum_shell_matrix.lo src/numerics/libmesh_prof_la-tensor_shell_matrix.lo src/numerics/libmesh_prof_la-tensor_tools.lo src/numerics/libmesh_prof_la-trilinos_epetra_matrix.lo src/numerics/libmesh_prof_la-trilinos_epetra_vector.lo src/numerics/libmesh_prof_la-trilinos_preconditioner.lo src/numerics/libmesh_prof_la-type_tensor.lo src/numerics/libmesh_prof_la-type_vector.lo src/parallel/libmesh_prof_la-parallel_bin_sorter.lo src/parallel/libmesh_prof_la-parallel_elem.lo src/parallel/libmesh_prof_la-parallel_ghost_sync.lo src/parallel/libmesh_prof_la-parallel_histogram.lo src/parallel/libmesh_prof_la-parallel_node.lo src/parallel/libmesh_prof_la-parallel_sort.lo src/parallel/libmesh_prof_la-threads.lo src/partitioning/libmesh_prof_la-centroid_partitioner.lo src/partitioning/libmesh_prof_la-linear_partitioner.lo src/partitioning/libmesh_prof_la-metis_partitioner.lo src/partitioning/libmesh_prof_la-parmetis_partitioner.lo src/partitioning/libmesh_prof_la-partitioner.lo src/partitioning/libmesh_prof_la-partitioner_factory.lo src/partitioning/libmesh_prof_la-sfc_partitioner.lo src/physics/libmesh_prof_la-diff_physics.lo src/physics/libmesh_prof_la-diff_qoi.lo src/physics/libmesh_prof_la-fem_physics.lo src/quadrature/libmesh_prof_la-quadrature.lo src/quadrature/libmesh_prof_la-quadrature_build.lo src/quadrature/libmesh_prof_la-quadrature_clough.lo src/quadrature/libmesh_prof_la-quadrature_clough_1D.lo src/quadrature/libmesh_prof_la-quadrature_clough_2D.lo src/quadrature/libmesh_prof_la-quadrature_clough_3D.lo src/quadrature/libmesh_prof_la-quadrature_composite.lo src/quadrature/libmesh_prof_la-quadrature_conical.lo src/quadrature/libmesh_prof_la-quadrature_conical_2D.lo src/quadrature/libmesh_prof_la-quadrature_conical_3D.lo src/quadrature/libmesh_prof_la-quadrature_gauss.lo src/quadrature/libmesh_prof_la-quadrature_gauss_1D.lo src/quadrature/libmesh_prof_la-quadrature_gauss_2D.lo src/quadrature/libmesh_prof_la-quadrature_gauss_3D.lo src/quadrature/libmesh_prof_la-quadrature_gauss_lobatto.lo src/quadrature/libmesh_prof_la-quadrature_gauss_lobatto_1D.lo src/quadrature/libmesh_prof_la-quadrature_gauss_lobatto_2D.lo src/quadrature/libmesh_prof_la-quadrature_gauss_lobatto_3D.lo src/quadrature/libmesh_prof_la-quadrature_gm.lo src/quadrature/libmesh_prof_la-quadrature_gm_2D.lo src/quadrature/libmesh_prof_la-quadrature_gm_3D.lo src/quadrature/libmesh_prof_la-quadrature_grid.lo src/quadrature/libmesh_prof_la-quadrature_grid_1D.lo src/quadrature/libmesh_prof_la-quadrature_grid_2D.lo src/quadrature/libmesh_prof_la-quadrature_grid_3D.lo src/quadrature/libmesh_prof_la-quadrature_jacobi.lo src/quadrature/libmesh_prof_la-quadrature_jacobi_1D.lo src/quadrature/libmesh_prof_la-quadrature_monomial.lo src/quadrature/libmesh_prof_la-quadrature_monomial_1D.lo src/quadrature/libmesh_prof_la-quadrature_monomial_2D.lo src/quadrature/libmesh_prof_la-quadrature_monomial_3D.lo src/quadrature/libmesh_prof_la-quadrature_simpson.lo src/quadrature/libmesh_prof_la-quadrature_simpson_1D.lo src/quadrature/libmesh_prof_la-quadrature_simpson_2D.lo src/quadrature/libmesh_prof_la-quadrature_simpson_3D.lo src/quadrature/libmesh_prof_la-quadrature_trap.lo src/quadrature/libmesh_prof_la-quadrature_trap_1D.lo src/quadrature/libmesh_prof_la-quadrature_trap_2D.lo src/quadrature/libmesh_prof_la-quadrature_trap_3D.lo src/reduced_basis/libmesh_prof_la-rb_assembly_expansion.lo src/reduced_basis/libmesh_prof_la-rb_construction.lo src/reduced_basis/libmesh_prof_la-rb_construction_base.lo src/reduced_basis/libmesh_prof_la-rb_data_deserialization.lo src/reduced_basis/libmesh_prof_la-rb_data_serialization.lo src/reduced_basis/libmesh_prof_la-rb_eim_assembly.lo src/reduced_basis/libmesh_prof_la-rb_eim_construction.lo src/reduced_basis/libmesh_prof_la-rb_eim_evaluation.lo src/reduced_basis/libmesh_prof_la-rb_eim_theta.lo src/reduced_basis/libmesh_prof_la-rb_evaluation.lo src/reduced_basis/libmesh_prof_la-rb_parameters.lo src/reduced_basis/libmesh_prof_la-rb_parametrized.lo src/reduced_basis/libmesh_prof_la-rb_scm_construction.lo src/reduced_basis/libmesh_prof_la-rb_scm_evaluation.lo src/reduced_basis/libmesh_prof_la-rb_temporal_discretization.lo src/reduced_basis/libmesh_prof_la-rb_theta_expansion.lo src/reduced_basis/libmesh_prof_la-transient_rb_assembly_expansion.lo src/reduced_basis/libmesh_prof_la-transient_rb_construction.lo src/reduced_basis/libmesh_prof_la-transient_rb_evaluation.lo src/reduced_basis/libmesh_prof_la-transient_rb_theta_expansion.lo src/solution_transfer/libmesh_prof_la-direct_solution_transfer.lo src/solution_transfer/libmesh_prof_la-dtk_adapter.lo src/solution_transfer/libmesh_prof_la-dtk_evaluator.lo src/solution_transfer/libmesh_prof_la-dtk_solution_transfer.lo src/solution_transfer/libmesh_prof_la-meshfree_interpolation.lo src/solution_transfer/libmesh_prof_la-meshfree_solution_transfer.lo src/solution_transfer/libmesh_prof_la-meshfunction_solution_transfer.lo src/solution_transfer/libmesh_prof_la-radial_basis_interpolation.lo src/solution_transfer/libmesh_prof_la-solution_transfer.lo src/solvers/libmesh_prof_la-adaptive_time_solver.lo src/solvers/libmesh_prof_la-diff_solver.lo src/solvers/libmesh_prof_la-eigen_solver.lo src/solvers/libmesh_prof_la-eigen_sparse_linear_solver.lo src/solvers/libmesh_prof_la-eigen_time_solver.lo src/solvers/libmesh_prof_la-euler2_solver.lo src/solvers/libmesh_prof_la-euler_solver.lo src/solvers/libmesh_prof_la-laspack_linear_solver.lo src/solvers/libmesh_prof_la-linear_solver.lo src/solvers/libmesh_prof_la-memory_solution_history.lo src/solvers/libmesh_prof_la-newmark_solver.lo src/solvers/libmesh_prof_la-newton_solver.lo src/solvers/libmesh_prof_la-nlopt_optimization_solver.lo src/solvers/libmesh_prof_la-no_solution_history.lo src/solvers/libmesh_prof_la-nonlinear_solver.lo src/solvers/libmesh_prof_la-optimization_solver.lo src/solvers/libmesh_prof_la-petsc_auto_fieldsplit.lo src/solvers/libmesh_prof_la-petsc_diff_solver.lo src/solvers/libmesh_prof_la-petsc_linear_solver.lo src/solvers/libmesh_prof_la-petsc_nonlinear_solver.lo src/solvers/libmesh_prof_la-petscdmlibmesh.lo src/solvers/libmesh_prof_la-petscdmlibmeshimpl.lo src/solvers/libmesh_prof_la-second_order_unsteady_solver.lo src/solvers/libmesh_prof_la-slepc_eigen_solver.lo src/solvers/libmesh_prof_la-steady_solver.lo src/solvers/libmesh_prof_la-tao_optimization_solver.lo src/solvers/libmesh_prof_la-time_solver.lo src/solvers/libmesh_prof_la-trilinos_aztec_linear_solver.lo src/solvers/libmesh_prof_la-trilinos_nox_nonlinear_solver.lo src/solvers/libmesh_prof_la-twostep_time_solver.lo src/solvers/libmesh_prof_la-unsteady_solver.lo src/systems/libmesh_prof_la-condensed_eigen_system.lo src/systems/libmesh_prof_la-continuation_system.lo src/systems/libmesh_prof_la-dg_fem_context.lo src/systems/libmesh_prof_la-diff_context.lo src/systems/libmesh_prof_la-diff_system.lo src/systems/libmesh_prof_la-eigen_system.lo src/systems/libmesh_prof_la-equation_systems.lo src/systems/libmesh_prof_la-equation_systems_io.lo src/systems/libmesh_prof_la-explicit_system.lo src/systems/libmesh_prof_la-fem_context.lo src/systems/libmesh_prof_la-fem_system.lo src/systems/libmesh_prof_la-frequency_system.lo src/systems/libmesh_prof_la-implicit_system.lo src/systems/libmesh_prof_la-linear_implicit_system.lo src/systems/libmesh_prof_la-newmark_system.lo src/systems/libmesh_prof_la-nonlinear_implicit_system.lo src/systems/libmesh_prof_la-optimization_system.lo src/systems/libmesh_prof_la-parameter_vector.lo src/systems/libmesh_prof_la-qoi_set.lo src/systems/libmesh_prof_la-steady_system.lo src/systems/libmesh_prof_la-system.lo src/systems/libmesh_prof_la-system_io.lo src/systems/libmesh_prof_la-system_projection.lo src/systems/libmesh_prof_la-system_subset.lo src/systems/libmesh_prof_la-system_subset_by_subdomain.lo src/systems/libmesh_prof_la-transient_system.lo src/utils/libmesh_prof_la-error_vector.lo src/utils/libmesh_prof_la-hashword.lo src/utils/libmesh_prof_la-libmesh_version.lo src/utils/libmesh_prof_la-location_maps.lo src/utils/libmesh_prof_la-number_lookups.lo src/utils/libmesh_prof_la-perf_log.lo src/utils/libmesh_prof_la-plt_loader.lo src/utils/libmesh_prof_la-plt_loader_read.lo src/utils/libmesh_prof_la-plt_loader_write.lo src/utils/libmesh_prof_la-point_locator_base.lo src/utils/libmesh_prof_la-point_locator_list.lo src/utils/libmesh_prof_la-point_locator_tree.lo src/utils/libmesh_prof_la-statistics.lo src/utils/libmesh_prof_la-string_to_enum.lo src/utils/libmesh_prof_la-timestamp.lo src/utils/libmesh_prof_la-topology_map.lo src/utils/libmesh_prof_la-tree.lo src/utils/libmesh_prof_la-tree_node.lo src/utils/libmesh_prof_la-utility.lo src/utils/libmesh_prof_la-xdr_cxx.lo contrib/libcontrib_prof.la -ltbb -ltbbmalloc -Wl,-rpath,/opt/slepc/lib -L/opt/slepc/lib -lslepc -L/opt/petsc/lib -L/lib/x86_64-linux-gnu -L/opt/OpenBLAS/lib -lpetsc -lHYPRE -lsuperlu_dist_4.1 -Wl,-rpath,/opt/OpenBLAS/lib -lopenblas -lparmetis -lmetis -lpthread -lmpifort -lgfortran -lquadmath -lm -lmpicxx -lstdc++ -Wl,-rpath,/lib/x86_64-linux-gnu -Wl,-rpath,/opt/petsc/lib -lmpi -lgcc_s -ldl -Wl,-rpath,/usr/lib -L/usr/lib -L/usr/lib/gcc/x86_64-linux-gnu/5.3.1 -L/usr/lib/x86_64-linux-gnu -L/usr/lib/llvm-3.8/lib -L/usr/lib/gcc/x86_64-linux-gnu/5 -Wl,-rpath,/usr/lib/gcc/x86_64-linux-gnu/5 -Wl,-rpath,/usr/lib/gcc/x86_64-linux-gnu/5.3.1 -Wl,-rpath,/usr/lib/x86_64-linux-gnu -Wl,-rpath,/usr/lib/llvm-3.8/lib -ltbb -ltbbmalloc -Wl,-rpath,/opt/slepc/lib -L/opt/slepc/lib -lslepc -L/opt/petsc/lib -L/lib/x86_64-linux-gnu -L/opt/OpenBLAS/lib -lpetsc -lHYPRE -lsuperlu_dist_4.1 -Wl,-rpath,/opt/OpenBLAS/lib -lopenblas -lparmetis -lmetis -lpthread -lmpifort -lgfortran -lquadmath -lm -lmpicxx -lstdc++ -Wl,-rpath,/lib/x86_64-linux-gnu -Wl,-rpath,/opt/petsc/lib -lmpi -lgcc_s -ldl -Wl,-rpath,/usr/lib -L/usr/lib -L/usr/lib/gcc/x86_64-linux-gnu/5.3.1 -L/usr/lib/x86_64-linux-gnu -L/usr/lib/llvm-3.8/lib -L/usr/lib/gcc/x86_64-linux-gnu/5 -Wl,-rpath,/usr/lib/gcc/x86_64-linux-gnu/5 -Wl,-rpath,/usr/lib/gcc/x86_64-linux-gnu/5.3.1 -Wl,-rpath,/usr/lib/x86_64-linux-gnu -Wl,-rpath,/usr/lib/llvm-3.8/lib )
-[91mclang[0m[91m: warning: argument unused during compilation: '-pg'
+[91mclang: warning: argument unused during compilation: '-pg'
 [0mlibtool: install: /usr/bin/install -c .libs/libmesh_prof.so.0.0.0T /opt/libmesh/lib/libmesh_prof.so.0.0.0
 libtool: install: (cd /opt/libmesh/lib && { ln -s -f libmesh_prof.so.0.0.0 libmesh_prof.so.0 || { rm -f libmesh_prof.so.0 && ln -s libmesh_prof.so.0.0.0 libmesh_prof.so.0; }; })
 libtool: install: (cd /opt/libmesh/lib && { ln -s -f libmesh_prof.so.0.0.0 libmesh_prof.so || { rm -f libmesh_prof.so && ln -s libmesh_prof.so.0.0.0 libmesh_prof.so; }; })
@@ -5397,8 +5409,11 @@ libtool: install: /usr/bin/install -c .libs/meshplot-dbg /opt/libmesh/bin/meshpl
 libtool: install: /usr/bin/install -c .libs/solution_components-dbg /opt/libmesh/bin/solution_components-dbg
 make[2]: Leaving directory '/tmp/libmesh-master'
 make[1]: Leaving directory '/tmp/libmesh-master'
-[91m+ make installcheck METHODS=opt
-[0mMaking installcheck in include
+ ---> d23f5cf6176c
+Removing intermediate container eb36137fd4bf
+Step 12 : RUN make installcheck -j$(nproc) METHODS=opt
+ ---> Running in 11c48bd5ce03
+Making installcheck in include
 make[1]: Entering directory '/tmp/libmesh-master/include'
 Making installcheck in libmesh
 make[2]: Entering directory '/tmp/libmesh-master/include/libmesh'
@@ -5411,40 +5426,40 @@ Checking for standalone headers in installed tree /opt/libmesh ...
 Testing Header libmesh_config.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header base/libmesh_C_isnan.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header base/libmesh_documentation.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header base/libmesh_base.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header base/id_types.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header base/libmesh_base.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header base/libmesh_exceptions.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header base/libmesh_version.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header base/auto_ptr.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header base/libmesh_common.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header base/factory.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header base/periodic_boundary.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header base/libmesh_version.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header base/libmesh_singleton.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header base/periodic_boundaries.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header base/libmesh_logging.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header base/libmesh.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header base/dof_object.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header base/periodic_boundaries.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header base/periodic_boundary.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header base/factory.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header base/multi_predicates.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header base/libmesh.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header base/getpot.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header base/dof_object.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header base/dof_map.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header base/dirichlet_boundaries.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header base/getpot.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header enums/enum_eigen_solver_type.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header enums/enum_convergence_flags.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header enums/enum_elem_type.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header enums/enum_order.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header enums/enum_point_locator_type.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header enums/enum_elem_quality.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header enums/enum_io_package.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header enums/enum_inf_map_type.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header enums/enum_norm_type.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header enums/enum_parallel_type.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header enums/enum_preconditioner_type.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header enums/enum_fe_family.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header enums/enum_order.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header enums/enum_eigen_solver_type.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header enums/enum_error_estimator_type.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header enums/enum_parallel_type.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header enums/enum_io_package.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header enums/enum_norm_type.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header enums/enum_preconditioner_type.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header enums/enum_elem_type.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header enums/enum_inf_map_type.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header enums/enum_fe_family.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header enums/enum_point_locator_type.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header base/print_trace.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header base/single_predicates.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header base/variable.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header base/variant_filter_iterator.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header base/single_predicates.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header base/reference_counter.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header base/reference_counted_object.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header base/sparsity_pattern.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
@@ -5452,347 +5467,347 @@ Testing Header enums/enum_solver_package.h ... [65G[1;37m[[1;32m   OK   [1;3
 Testing Header enums/enum_solver_type.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header enums/enum_subset_solve_mode.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header enums/enum_xdr_mode.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header error_estimation/hp_singular.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header error_estimation/hp_selector.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header error_estimation/exact_solution.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header error_estimation/error_estimator.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header error_estimation/exact_error_estimator.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header error_estimation/adjoint_residual_error_estimator.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header error_estimation/hp_selector.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header error_estimation/hp_singular.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header error_estimation/adjoint_refinement_estimator.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header error_estimation/adjoint_residual_error_estimator.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header error_estimation/exact_error_estimator.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header error_estimation/error_estimator.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header error_estimation/uniform_refinement_estimator.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header fe/fe.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header error_estimation/kelly_error_estimator.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header error_estimation/fourth_error_estimators.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header error_estimation/hp_coarsentest.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header error_estimation/jump_error_estimator.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header error_estimation/patch_recovery_error_estimator.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header error_estimation/weighted_patch_recovery_error_estimator.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header error_estimation/discontinuity_measure.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header error_estimation/hp_coarsentest.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header error_estimation/patch_recovery_error_estimator.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header error_estimation/fourth_error_estimators.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header error_estimation/weighted_patch_recovery_error_estimator.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header error_estimation/jump_error_estimator.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header error_estimation/kelly_error_estimator.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header fe/fe_macro.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header fe/inf_fe_macro.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header fe/inf_fe_instantiate_1D.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header fe/inf_fe_instantiate_2D.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header fe/inf_fe_macro.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header fe/inf_fe_instantiate_3D.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header fe/fe_interface.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header fe/fe_type.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header fe/fe_interface.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header fe/fe_compute_data.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header fe/fe_map.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header fe/fe_base.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header fe/fe_xyz_map.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header fe/inf_fe.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header fe/hcurl_fe_transformation.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header fe/fe_base.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header fe/fe_map.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header fe/fe_transformation_base.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header fe/h1_fe_transformation.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header geom/cell_hex20.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header geom/cell.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header geom/cell_hex27.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header fe/inf_fe.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header fe/hcurl_fe_transformation.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header geom/cell_hex.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header geom/cell.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header geom/cell_hex8.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header geom/cell_inf_hex18.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header geom/cell_inf_hex.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header geom/cell_pyramid.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header geom/cell_inf_prism12.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header geom/cell_inf_hex8.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header geom/cell_hex20.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header geom/cell_hex27.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header geom/cell_prism.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header geom/cell_tet10.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header geom/cell_tet.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header geom/cell_prism18.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header geom/cell_inf_prism.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header geom/cell_inf_hex16.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header geom/cell_inf_hex.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header geom/cell_inf_hex8.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header geom/cell_pyramid13.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header geom/cell_inf_prism6.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header geom/cell_pyramid14.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header geom/cell_pyramid13.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header geom/cell_tet.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header geom/cell_inf_prism.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header geom/cell_prism18.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header geom/cell_tet4.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header geom/cell_tet10.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header geom/cell_prism15.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header geom/edge.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header geom/edge_edge2.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header geom/cell_inf_prism12.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header geom/cell_prism6.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header geom/cell_pyramid5.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header geom/cell_inf_hex18.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header geom/cell_prism15.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header geom/cell_tet4.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header geom/cell_pyramid.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header geom/edge_edge2.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header geom/edge.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header geom/elem_cutter.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header geom/elem_quality.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header geom/face_quad.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header geom/face_inf_quad.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header geom/edge_inf_edge2.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header geom/node.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header geom/elem.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header geom/elem_range.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header geom/edge_edge4.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header geom/face.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header geom/face_inf_quad4.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header geom/face_quad4.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header geom/elem.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header geom/face_quad9.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header geom/elem_hash.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header geom/face_inf_quad6.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header geom/edge_inf_edge2.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header geom/face_tri.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header geom/face_tri3_subdivision.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header geom/face_quad.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header geom/face_inf_quad.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header geom/face_tri3.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header geom/face_quad4.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header geom/face_tri6.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header geom/face.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header geom/face_inf_quad6.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header geom/elem_hash.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header geom/face_quad9.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header geom/face_quad8.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header geom/face_tri3_subdivision.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header geom/face_inf_quad4.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header geom/reference_elem.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header geom/plane.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header geom/surface.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/boundary_info.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header geom/point.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header geom/reference_elem.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header geom/stored_range.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header geom/sphere.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/boundary_info.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header geom/node_range.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/boundary_mesh.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/gnuplot_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header geom/side.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header mesh/checkpoint_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/gmv_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header geom/remote_elem.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/fro_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/abaqus_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/exodusII_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/diva_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/ensight_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/boundary_mesh.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header mesh/gmsh_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/abaqus_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/gnuplot_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/diva_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/exodusII_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/gmv_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/fro_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/ensight_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header geom/remote_elem.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header geom/side.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/mesh_serializer.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header mesh/mesh_smoother.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header mesh/mesh_tetgen_interface.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/mesh_serializer.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header mesh/mesh_modification.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header mesh/mesh_smoother_vsmoother.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/mesh_refinement.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header mesh/mesh_generation.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header mesh/mesh_smoother_laplace.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/mesh_refinement.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header mesh/mesh_data.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header mesh/mesh_function.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/legacy_xdr_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/matlab_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/mesh_base.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/medit_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/mesh_communication.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/mesh_input.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/mesh_output.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header mesh/mesh.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/mesh_inserter_iterator.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/legacy_xdr_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/mesh_input.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/mesh_base.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/mesh_communication.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/matlab_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/mesh_output.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/medit_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header mesh/mesh_subdivision_support.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/mesh_inserter_iterator.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/mesh_triangle_wrapper.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header mesh/mesh_triangle_holes.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header mesh/mesh_triangle_interface.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/mesh_triangle_wrapper.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header mesh/patch.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/namebased_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/serial_mesh.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/vtk_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/xdr_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/tecplot_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/mesh_tools.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/postscript_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/off_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header mesh/ucd_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header mesh/parallel_mesh.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/mesh_tools.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/off_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/tetgen_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/unv_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/unstructured_mesh.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header mesh/nemesis_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/vtk_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/tecplot_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/xdr_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/unstructured_mesh.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/namebased_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/tetgen_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/serial_mesh.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/unv_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header mesh/xdr_head.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/postscript_io.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header mesh/xdr_mesh.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header numerics/dense_matrix_base.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header numerics/dense_vector_base.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header numerics/analytic_function.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header numerics/dense_vector.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header numerics/dense_subvector.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header numerics/dense_matrix.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header numerics/dense_matrix_base.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header numerics/analytic_function.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header numerics/const_function.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header numerics/dense_subvector.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header numerics/coupling_matrix.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header numerics/dense_submatrix.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header numerics/composite_function.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header numerics/const_fem_function.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/xdr_soln.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header numerics/composite_fem_function.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/xdr_shead.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header mesh/xdr_mhead.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header numerics/distributed_vector.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header numerics/dense_matrix.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header numerics/eigen_core_support.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/xdr_mhead.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/xdr_soln.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header numerics/composite_function.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header numerics/distributed_vector.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header mesh/xdr_shead.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header numerics/const_fem_function.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header numerics/composite_fem_function.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header numerics/eigen_preconditioner.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header numerics/eigen_sparse_vector.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header numerics/eigen_sparse_matrix.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header numerics/function_base.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header numerics/parsed_fem_function_parameter.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header numerics/refinement_selector.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header numerics/petsc_macro.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header numerics/eigen_sparse_vector.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header numerics/raw_accessor.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header numerics/tensor_tools.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header numerics/petsc_solver_exception.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header numerics/function_base.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header numerics/petsc_macro.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header numerics/parsed_fem_function_parameter.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header numerics/refinement_selector.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header numerics/parsed_function_parameter.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header numerics/parsed_function.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header numerics/sparse_shell_matrix.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header numerics/preconditioner.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header numerics/shell_matrix.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header numerics/numeric_vector.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header numerics/sum_shell_matrix.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header numerics/preconditioner.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header numerics/parsed_function_parameter.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header numerics/shell_matrix.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header numerics/tensor_shell_matrix.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header numerics/sparse_shell_matrix.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header numerics/sparse_matrix.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header numerics/petsc_preconditioner.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header numerics/tensor_shell_matrix.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header numerics/petsc_vector.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header numerics/petsc_matrix.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header numerics/parsed_fem_function.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header numerics/trilinos_preconditioner.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header parallel/parallel_communicator_specializations ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header numerics/type_vector.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header numerics/type_n_tensor.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header numerics/type_tensor.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header numerics/vector_value.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header numerics/trilinos_epetra_vector.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header numerics/trilinos_preconditioner.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header numerics/trilinos_epetra_matrix.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header numerics/trilinos_epetra_vector.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header numerics/type_tensor.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header numerics/type_n_tensor.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header numerics/zero_function.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header parallel/parallel_bin_sorter.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header parallel/parallel.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header numerics/type_vector.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header numerics/vector_value.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header parallel/parallel_implementation.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header parallel/parallel_object.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header parallel/parallel_histogram.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header parallel/parallel.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header parallel/parallel_node.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header parallel/parallel_bin_sorter.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header parallel/parallel_object.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header parallel/parallel_algebra.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header parallel/parallel_histogram.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header numerics/wrapped_functor.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header parallel/parallel_elem.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header parallel/parallel_ghost_sync.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header numerics/wrapped_function.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header quadrature/quadrature_composite.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header partitioning/metis_csr_graph.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header parallel/threads.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header partitioning/morton_sfc_partitioner.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header partitioning/centroid_partitioner.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header partitioning/hilbert_sfc_partitioner.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header parallel/threads.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header physics/diff_physics.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header parallel/threads_allocators.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header partitioning/linear_partitioner.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header partitioning/sfc_partitioner.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header partitioning/partitioner.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header physics/diff_qoi.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header quadrature/quadrature_conical.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header physics/fem_physics.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header partitioning/metis_csr_graph.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header partitioning/metis_partitioner.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header quadrature/quadrature_gauss.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header parallel/threads_allocators.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header partitioning/sfc_partitioner.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header physics/diff_physics.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header physics/diff_qoi.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header physics/fem_physics.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header partitioning/hilbert_sfc_partitioner.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header partitioning/partitioner.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header quadrature/quadrature.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header quadrature/quadrature_clough.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header quadrature/quadrature_gauss_lobatto.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header partitioning/parmetis_partitioner.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header quadrature/quadrature_gauss_lobatto.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header quadrature/quadrature_clough.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header quadrature/quadrature_gauss.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header quadrature/quadrature_conical.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header reduced_basis/rb_scm_construction.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header reduced_basis/rb_data_serialization.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header reduced_basis/rb_data_deserialization.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header reduced_basis/rb_scm_construction.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header reduced_basis/rb_scm_evaluation.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header reduced_basis/rb_parameters.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header reduced_basis/rb_parametrized_function.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header reduced_basis/rb_parametrized.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header reduced_basis/rb_eim_theta.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header reduced_basis/rb_assembly_expansion.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header quadrature/quadrature_trap.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header quadrature/quadrature_grid.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header reduced_basis/rb_parameters.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header quadrature/quadrature_monomial.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header quadrature/quadrature_simpson.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header reduced_basis/rb_eim_assembly.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header quadrature/quadrature_jacobi.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header quadrature/quadrature_grid.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header reduced_basis/rb_assembly_expansion.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header quadrature/quadrature_simpson.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header reduced_basis/rb_parametrized.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header quadrature/quadrature_trap.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header reduced_basis/rb_eim_theta.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header reduced_basis/rb_eim_assembly.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header reduced_basis/rb_eim_evaluation.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header reduced_basis/rb_evaluation.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header reduced_basis/rb_construction_base.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header reduced_basis/rb_eim_evaluation.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header reduced_basis/rb_construction.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header reduced_basis/rb_eim_construction.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header solution_transfer/dtk_adapter.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header solution_transfer/dtk_evaluator.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header solution_transfer/dtk_solution_transfer.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header reduced_basis/rb_theta.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header reduced_basis/transient_rb_assembly_expansion.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header reduced_basis/rb_theta_expansion.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header solution_transfer/dtk_evaluator.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header solution_transfer/radial_basis_functions.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header solution_transfer/meshfree_interpolation.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header reduced_basis/rb_theta.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header reduced_basis/rb_theta_expansion.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header reduced_basis/transient_rb_assembly_expansion.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header solvers/diff_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header reduced_basis/transient_rb_theta_expansion.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header solvers/eigen_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header reduced_basis/transient_rb_evaluation.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header reduced_basis/transient_rb_theta_expansion.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header solution_transfer/meshfree_interpolation.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header solution_transfer/radial_basis_interpolation.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header reduced_basis/transient_rb_construction.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header solution_transfer/direct_solution_transfer.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header solution_transfer/meshfree_solution_transfer.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header solution_transfer/meshfunction_solution_transfer.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header reduced_basis/transient_rb_construction.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header solvers/adaptive_time_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header solution_transfer/meshfunction_solution_transfer.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header solution_transfer/solution_transfer.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header solution_transfer/meshfree_solution_transfer.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header solvers/eigen_sparse_linear_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header solvers/slepc_macro.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header solvers/nlopt_optimization_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header solvers/slepc_macro.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header solvers/petsc_auto_fieldsplit.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header solvers/newton_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header solvers/linear_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header solvers/newton_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header solvers/petsc_linear_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header solvers/petsc_diff_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header solvers/slepc_eigen_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header solvers/euler2_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header solvers/solution_history.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header solvers/euler_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header solvers/nonlinear_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header solvers/first_order_unsteady_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header solvers/no_solution_history.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header solvers/petsc_diff_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header solvers/optimization_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header solvers/euler2_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header solvers/no_solution_history.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header solvers/solution_history.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header solvers/first_order_unsteady_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header solvers/nonlinear_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header solvers/euler_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header solvers/memory_solution_history.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header solvers/newmark_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header solvers/second_order_unsteady_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header solvers/petscdmlibmesh.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header solvers/newmark_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header solvers/petsc_nonlinear_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header solvers/trilinos_nox_nonlinear_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header systems/frequency_system.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header solvers/trilinos_aztec_linear_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header systems/diff_context.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header systems/fem_context.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header solvers/trilinos_aztec_linear_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header systems/elem_assembly.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header solvers/unsteady_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header solvers/steady_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header systems/dg_fem_context.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header solvers/tao_optimization_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header solvers/twostep_time_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header systems/explicit_system.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header solvers/steady_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header solvers/time_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header systems/diff_system.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header systems/fem_context.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header systems/condensed_eigen_system.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header systems/equation_systems.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header systems/fem_system.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header solvers/tao_optimization_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header solvers/unsteady_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header systems/eigen_system.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header systems/explicit_system.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header systems/diff_system.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header systems/implicit_system.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header systems/continuation_system.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header systems/fem_system.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header solvers/twostep_time_solver.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header systems/equation_systems.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header utils/ignore_warnings.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header systems/qoi_set.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header systems/parameter_accessor.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header utils/compare_types.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header systems/parameter_vector.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header systems/parameter_pointer.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header utils/compare_types.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header utils/hashword.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header systems/parameter_multipointer.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header utils/error_vector.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header systems/parameter_accessor.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header systems/system_norm.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header utils/error_vector.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header systems/parameter_multiaccessor.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header systems/system_subset.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header systems/parameter_multipointer.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header systems/system_subset_by_subdomain.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header systems/system_subset.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header systems/optimization_system.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header systems/nonlinear_implicit_system.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header systems/system.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header systems/sensitivity_data.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header systems/steady_system.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header systems/system.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header systems/transient_system.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header systems/nonlinear_implicit_system.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header systems/steady_system.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header systems/newmark_system.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header utils/number_lookups.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header utils/restore_warnings.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header utils/safe_bool.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header utils/restore_warnings.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header utils/null_output_iterator.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header utils/string_to_enum.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header utils/mapvector.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header utils/timestamp.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header utils/string_to_enum.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header utils/ostream_proxy.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header utils/location_maps.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header utils/null_output_iterator.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header utils/perfmon.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header utils/plt_loader.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header utils/statistics.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header utils/topology_map.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header utils/location_maps.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header utils/plt_loader.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header utils/perf_log.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header utils/point_locator_tree.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header utils/topology_map.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header utils/pool_allocator.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header utils/tree.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header utils/point_locator_base.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header utils/point_locator_list.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header utils/parameters.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header utils/point_locator_base.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header utils/point_locator_tree.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header utils/point_locator_list.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header contrib/exodusII.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header contrib/fparser.hh ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header utils/tree_node.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing Header utils/vectormap.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header utils/utility.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing Header utils/vectormap.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing Header utils/xdr_cxx.h ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 make[2]: Leaving directory '/tmp/libmesh-master/include'
 make[1]: Leaving directory '/tmp/libmesh-master/include'
@@ -6168,15 +6183,15 @@ Checking for self-sufficient examples...
  
 Testing examples in /opt/libmesh/examples
 Testing example installation adaptivity/ex1 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing example installation adaptivity/ex2 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing example installation adaptivity/ex4 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing example installation adaptivity/ex3 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing example installation adaptivity/ex5 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing example installation adaptivity/ex2 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing example installation eigenproblems/ex1 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing example installation adjoints/ex2 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing example installation adjoints/ex5 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing example installation adjoints/ex4 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing example installation adjoints/ex3 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing example installation adjoints/ex4 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing example installation eigenproblems/ex3 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing example installation fem_system/ex3 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing example installation fem_system/ex4 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
@@ -6184,8 +6199,8 @@ Testing example installation fem_system/ex2 ... [65G[1;37m[[1;32m   OK   [1;
 Testing example installation fem_system/ex1 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing example installation introduction/ex2 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing example installation mesh_transfer/simple_dtk ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing example installation introduction/ex3 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing example installation introduction/ex5 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing example installation introduction/ex3 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing example installation introduction/ex4 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing example installation miscellaneous/ex2 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing example installation miscellaneous/ex11 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
@@ -6204,16 +6219,16 @@ Testing example installation reduced_basis/ex3 ... [65G[1;37m[[1;32m   OK   
 Testing example installation optimization/ex2 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing example installation subdomains/ex3 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing example installation reduced_basis/ex7 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing example installation reduced_basis/ex6 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing example installation subdomains/ex2 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing example installation subdomains/ex1 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing example installation systems_of_equations/ex2 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing example installation reduced_basis/ex6 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing example installation systems_of_equations/ex4 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing example installation systems_of_equations/ex3 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing example installation systems_of_equations/ex5 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing example installation systems_of_equations/ex2 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing example installation systems_of_equations/ex6 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
-Testing example installation transient/ex1 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing example installation transient/ex2 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
+Testing example installation transient/ex1 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing example installation vector_fe/ex1 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing example installation vector_fe/ex2 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
 Testing example installation systems_of_equations/ex8 ... [65G[1;37m[[1;32m   OK   [1;37m][m[m
@@ -6233,19 +6248,22 @@ make[1]: Leaving directory '/tmp/libmesh-master/doc'
 make[1]: Entering directory '/tmp/libmesh-master'
 make[1]: Nothing to be done for 'installcheck-am'.
 make[1]: Leaving directory '/tmp/libmesh-master'
-[91m+ echo 'export LIBMESH_DIR=/opt/libmesh'
-[0m[91m+ echo 'export PATH=/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
-[0m[91m+ source /root/.bashrc
-[0m[91m++ export PETSC_DIR=/opt/petsc
-++ PETSC_DIR=/opt/petsc
-++ export SLEPC_DIR=/opt/slepc
-++ SLEPC_DIR=/opt/slepc
-++ export LIBMESH_DIR=/opt/libmesh
-++ LIBMESH_DIR=/opt/libmesh
-++ export PATH=/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-++ PATH=/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-[0m[91m+ cd /
-[0m[91m+ rm -rf /tmp/libmesh-master
-[0m ---> 5dd7bff03c04
-Removing intermediate container ef411dfa7761
-Successfully built 5dd7bff03c04
+ ---> 22655d4869c5
+Removing intermediate container 11c48bd5ce03
+Step 13 : ENV LIBMESH_DIR /opt/libmesh
+ ---> Running in b5670d7bf99b
+ ---> 2bd37f28536d
+Removing intermediate container b5670d7bf99b
+Step 14 : ENV PATH $LIBMESH_DIR/bin:$PATH
+ ---> Running in 6b78e2f08d27
+ ---> 289684662889
+Removing intermediate container 6b78e2f08d27
+Step 15 : RUN rm -rf /tmp/*
+ ---> Running in a6645cf486b7
+ ---> ec88adb19085
+Removing intermediate container a6645cf486b7
+Step 16 : WORKDIR /opt
+ ---> Running in f64692209036
+ ---> 64cd3d3aabeb
+Removing intermediate container f64692209036
+Successfully built 64cd3d3aabeb
